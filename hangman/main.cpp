@@ -6,11 +6,17 @@
 #include "utilities.h"
 using namespace std;
 
+//variables 
 char guesses[100]; //can handle up to 100 guesses
 char misses[100]; //so it can handle up to 100 misses
 int tries;
 string wordChosen;
 bool won; 
+
+//features
+void menu();
+bool check(char input);
+
 
 int main()
 {
@@ -32,7 +38,8 @@ int main()
 
 bool check(char input)
 {
-
+	//placeholder for now
+	return false;
 }
 
 
