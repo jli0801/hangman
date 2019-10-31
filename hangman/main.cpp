@@ -9,11 +9,13 @@ using namespace std;
 char guesses[100]; //can handle up to 100 guesses
 char misses[100]; //so it can handle up to 100 misses
 int tries;
+string wordChosen;
 bool won; 
 
 int main()
 {
 	tries = 6; //only get six tries 
+	wordChosen = loadRandomWord("wordset.txt");
 	won = false; 
 	if (!won)
 	{
@@ -27,6 +29,13 @@ int main()
 
 	}
 }
+
+bool check(char input)
+{
+
+}
+
+
 
 void menu()
 {
