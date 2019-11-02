@@ -4,13 +4,18 @@
 #include <string>
 #include <vector>
 #include "utilities.h"
+#include "word.h"
+
 using namespace std;
 
 //variables 
-char guesses[100]; //can handle up to 100 guesses
-char misses[100]; //so it can handle up to 100 misses
-int tries;
+char guesses[26]; //can handle up to 100 guesses
+//guesses are the right letters
+char misses[6]; //so it can handle up to 100 misses
+//misses are the wrong letters 
+int tries = 6;
 string wordChosen;
+word usersWord = word(wordChosen);
 bool won; 
 
 //features
@@ -20,7 +25,6 @@ bool check(char input);
 
 int main()
 {
-	tries = 6; //only get six tries 
 	wordChosen = loadRandomWord("wordset.txt");
 	won = false; 
 	if (!won)
@@ -46,12 +50,13 @@ bool check(char input)
 
 void menu()
 {
+	string wordOutput = usersWord.populateWord(usersWord.getWord());
 	printMessage("Hangman", true, false);
 	printMessage("|", true, false);
 	printMessage("", false, false);
 	printMessage("", false, false);
 	printMessage("", false, false);
-	printMessage("_ _ _ _ _ _", true, true );
+	printMessage(wordOutput, true, true );
 	cout << "Guesses: ";
 	for (int i = 0; i < 100; i++)
 	{

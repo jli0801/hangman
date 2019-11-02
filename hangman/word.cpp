@@ -5,7 +5,17 @@ using std::string;
 word::word(string input)
 {
 	this->chosenWord = input;
-	
+	setLength(input.length());
+	setUsedWord(false);
+	lettersRight = new bool[length];
+	for (int i = 0; i < length; i++)
+	{
+		lettersRight[i] = false;
+	}
+	charGuessed = new char[input.size() +1];
+	//populate the char guessed 
+	strcpy(charGuessed, input.c_str());
+
 }
 
 string word::getWord()
@@ -18,21 +28,46 @@ int word::getLength()
 	return length;
 }
 
-void word::setUsedWord(bool input)
-{
-
-}
-
-bool word::getUsedWord()
-{
-	return false;
-}
-
-void word::printWord(string word, bool top, bool bottom)
+string word::populateWord(string word)
 {
 	string output = "";
 
 	//put the for loop here 
+	for (int i = 0; i < word.length; i++)
+	{
+		if (!lettersRight[i])
+		{
+			//false
+			output += " _ ";
+		}
+		else
+		{
+			//true
+			output += " ";
+			output += charGuessed[i];
+			output += " ";
+		}
+	}
+	return output;
+}
+
+void word::setLength(int uLength)
+{
+	this->length = uLength;
+}
+
+void word::setUsedWord(bool input)
+{
+	this->usedWord = input;
+}
+
+bool word::getUsedWord()
+{
+	return usedWord;
+}
+
+void word::printWord(string word, bool top, bool bottom)
+{
 
 	if (top)
 	{
