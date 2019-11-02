@@ -9,20 +9,23 @@
 using namespace std;
 
 //variables 
-char guesses[26]; //can handle up to 100 guesses
+string guesses[32]; //can handle up to 32 guesses (26 letters in alphabet + 6 misses of guessed words/phrases)
 //guesses are the right letters
-char misses[6]; //so it can handle up to 100 misses
+string misses[6]; //so it can handle up to 6 misses
 //misses are the wrong letters 
-int tries = 6;
+
 string wordChosen;
 word usersWord = word(wordChosen);
 bool won; 
 
 //features
 void menu();
-bool check(char input);
+bool check_guesses(string input); //checks if the user input has already been guessed
+bool check_word(string input); // checks if user input is a correct attempt
 
 
+
+//=============================================================================//
 int main()
 {
 	wordChosen = loadRandomWord("wordset.txt");
@@ -40,10 +43,24 @@ int main()
 	}
 }
 
-bool check(char input)
+bool check_guesses(string input)
 {
-	//placeholder for now
-	return false;
+	for (int i = 0; i < 32; i++) {
+		if ((input.compare(guesses[i])) == 0) {
+			cout << "Already guessed this attempt, please enter another guess";
+			return false;
+		}
+	}
+	return true;
+}
+
+bool check_word(string input)
+{
+	for (int i = 0; i < wordChosen.length(); i++) {
+		if (wordChosen.compare(input) == 0) {
+		}
+	}
+
 }
 
 
