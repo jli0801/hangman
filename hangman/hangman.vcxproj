@@ -125,9 +125,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utilities.cpp" />
+    <ClCompile Include="word.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utilities.h" />
+    <ClInclude Include="word.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="wordset.txt" />

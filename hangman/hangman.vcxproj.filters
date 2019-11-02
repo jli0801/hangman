@@ -21,9 +21,15 @@
     <ClCompile Include="utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="word.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="word.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
