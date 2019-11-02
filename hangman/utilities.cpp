@@ -1,6 +1,6 @@
 #include "utilities.h"
 
-void printMessage(string message, bool printTop = true, bool printBottom = true)
+void printMessage(string message, bool printTop, bool printBottom)
 {
 	if (printTop)
 	{
