@@ -14,7 +14,8 @@ string wordChosen;
 bool won; 
 
 //features
-void menu();
+void start_menu();
+void game_start();
 bool check(char input);
 
 
@@ -25,7 +26,8 @@ int main()
 	won = false; 
 	if (!won)
 	{
-		menu();
+		start_menu();
+		//game_start();
 		cout << "Guess a letter" << endl;
 	}
 	else
@@ -42,9 +44,40 @@ bool check(char input)
 	return false;
 }
 
+void start_menu() {
+	int input;
+	printMessage("Hangman Game", true, false);
+	printMessage("ESE224 Fall 2019", true, false);
+	printMessage("Group Members:", true, false);
+	printMessage("Student A", false, false);
+	printMessage("Student B", false, false);
+	printMessage("Student C", false, false);
+	printMessage("Student D", false, true);
+	printMessage("Select Difficulty:", false, false);
+	printMessage("1. Easy", false, false);
+	printMessage(" 2. Medium", false, false);
+	printMessage("3. Hard", false, true);
+	cout << "Please select a number to contune, enter 'q' to quit: ";
+	cin >> input;
+	switch (input) {
+	case 1:
+		//tries = 6;
+		//wordChosen = loadRandomWord;
+		//won = fail
+		break;
+	case 2:
+		
+		break;
+	case 3: 
 
+		break;
+	default:
+		break;
+	}
 
-void menu()
+}
+
+void game_start()
 {
 	printMessage("Hangman", true, false);
 	printMessage("|", true, false);
