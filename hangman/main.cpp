@@ -9,22 +9,21 @@
 using namespace std;
 
 //variables 
-string guesses[32]; //can handle up to 32 guesses (26 letters in alphabet + 6 misses of guessed words/phrases)
+char guesses[26]; //can handle up to 100 guesses
 //guesses are the right letters
-string misses[6]; //so it can handle up to 6 misses
+char misses[6]; //so it can handle up to 100 misses
 //misses are the wrong letters 
-
+int tries = 6;
 string wordChosen;
 word usersWord = word(wordChosen);
 bool won; 
 
 //features
-void menu();
+void start_menu();
+void game_start();
 bool check(char input);
 
 
-
-//=============================================================================//
 int main()
 {
 	wordChosen = loadRandomWord("wordset.txt");
@@ -43,24 +42,10 @@ int main()
 	}
 }
 
-bool check_guesses(string input)
+bool check(char input)
 {
-	for (int i = 0; i < 32; i++) {
-		if ((input.compare(guesses[i])) == 0) {
-			cout << "Already guessed this attempt, please enter another guess";
-			return false;
-		}
-	}
-	return true;
-}
-
-bool check_word(string input)
-{
-	for (int i = 0; i < wordChosen.length(); i++) {
-		if (wordChosen.compare(input) == 0) {
-		}
-	}
-
+	//placeholder for now
+	return false;
 }
 
 void start_menu() {
