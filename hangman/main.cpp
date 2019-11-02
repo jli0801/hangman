@@ -42,10 +42,24 @@ int main()
 	}
 }
 
-bool check(char input)
+bool check_guesses(string input)
 {
-	//placeholder for now
-	return false;
+	for (int i = 0; i < 32; i++) {
+		if ((input.compare(guesses[i])) == 0) {
+			cout << "Already guessed this attempt, please enter another guess";
+			return false;
+		}
+	}
+	return true;
+}
+
+bool check_word(string input)
+{
+	for (int i = 0; i < wordChosen.length(); i++) {
+		if (wordChosen.compare(input) == 0) {
+		}
+	}
+
 }
 
 void start_menu() {
