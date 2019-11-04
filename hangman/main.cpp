@@ -9,14 +9,15 @@
 using namespace std;
 
 //variables 
-char guesses[26]; //can handle up to 100 guesses
+char guesses[26]; //can handle up to 26 guesses
 //guesses are the right letters
-char misses[6]; //so it can handle up to 100 misses
+char misses[6]; //so it can handle up to 6 misses
 //misses are the wrong letters 
 int tries = 6;
 string wordChosen;
 word usersWord = word(wordChosen);
 bool won; 
+bool start;
 
 //features
 void start_menu();
@@ -26,20 +27,26 @@ bool check_word(string input);
 
 int main()
 {
-	wordChosen = loadRandomWord("wordset.txt");
 	won = false; 
-	if (!won)
+	start = true;
+	while (!won)
 	{
-		start_menu();
-		//game_start();
-		cout << "Guess a letter" << endl;
-	}
-	else
-	{
-		//print: 
-		//either they win or lose 
+		if (start)
+		{
+			start_menu();
+			start = false; 
+			//THIS WILL BECOME TRUE WHEN THEY'RE DONE WITH A GAME
+		}
+		else
+		{
+			//start the game 
+			wordChosen = loadRandomWord("wordset.txt");
+			game_start();
+			cout << "Guess a letter" << endl;
 
+		}
 	}
+	
 }
 
 bool check_guesses(string input)
@@ -56,11 +63,15 @@ bool check_guesses(string input)
 
 bool check_word(string input)
 {
-	for (int i = 0; i < wordChosen.length(); i++) {
-		if (wordChosen.compare(input) == 0) {
-		}
+	//don't need the for loop	
+	if (wordChosen.compare(input) == 0) {
+		return true; 
 	}
-
+	else
+	{
+		return false;
+	}
+	
 }
 
 void start_menu() {
