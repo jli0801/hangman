@@ -21,8 +21,8 @@ bool won;
 //features
 void start_menu();
 void game_start();
-bool check(char input);
-
+bool check_guesses(string input);
+bool check_word(string input);
 
 int main()
 {
@@ -45,7 +45,8 @@ int main()
 bool check_guesses(string input)
 {
 	for (int i = 0; i < 32; i++) {
-		if ((input.compare(guesses[i])) == 0) {
+		//guesses are chars not strings so don't use .compare
+		if (input.at(0) == guesses[i]) {
 			cout << "Already guessed this attempt, please enter another guess";
 			return false;
 		}
