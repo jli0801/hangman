@@ -94,12 +94,17 @@ void start_menu() {
 		//tries = 6;
 		//wordChosen = loadRandomWord;
 		//won = fail
+		//EASY
 		break;
 	case 2:
-		
+		//MEDIUM
 		break;
 	case 3: 
-
+		//HARD
+		break;
+	case 'Q':
+	case 'q':
+		exit(0);	//exit the program 
 		break;
 	default:
 		break;
