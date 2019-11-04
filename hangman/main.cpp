@@ -165,19 +165,19 @@ void updateBoard() //changed the function so that it can handle updates
 	}
 	else if (guesses[3] != NULL && tries == 4)
 	{
-		printMessage("o", false, false);
+		printMessage(" o", false, false);
 		printMessage("/|'\'", false, false); //BODY LEFT AND RIGHT ARM
 		printMessage("", false, false);
 	}
 	else if (guesses[4] != NULL && tries == 5)
 	{
-		printMessage("o", false, false);
+		printMessage(" o", false, false);
 		printMessage("/|'\'", false, false); 
 		printMessage("'\'", false, false);	//left foot
 	}
 	else if(guesses[5] != NULL && tries == 6)
 	{
-		printMessage("o", false, false);
+		printMessage(" o", false, false);
 		printMessage("/|'\'", false, false);
 		printMessage("/ '\'", false, false);	//WHOLE BODY
 	}
