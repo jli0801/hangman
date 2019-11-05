@@ -12,7 +12,7 @@ void printMessage(string message, bool printTop, bool printBottom)
 		cout << "|";
 	}
 	bool front = true;
-	for (int i = message.length(); i < 33; i++)
+	for (auto i = message.length(); i < 33; i++)
 	{
 		if (front)
 		{

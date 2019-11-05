@@ -15,6 +15,7 @@ private:
 	//holds the characters of the chosenWord
 	
 public:
+	word();
 	word(string input);
 	string getWord();
 	int getLength();

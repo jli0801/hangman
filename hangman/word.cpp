@@ -1,7 +1,11 @@
 #include "word.h"
-#include <string>
+#include <string.h>
+#include <stdio.h>
 using std::string;
 
+word::word() {
+
+}
 word::word(string input)
 {
 	this->chosenWord = input;
@@ -33,7 +37,7 @@ string word::populateWord(string word)
 	string output = "";
 
 	//put the for loop here 
-	for (int i = 0; i < word.length; i++)
+	for (int i = 0; i < word.length(); i++)
 	{
 		if (!lettersRight[i])
 		{
