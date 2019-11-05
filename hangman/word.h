@@ -10,7 +10,6 @@ private:
 	int length = 0;
 	bool usedWord = false;
 	bool *lettersRight;
-	//it's 100 but it will get reassign it 
 	char *charGuessed;
 	//holds the characters of the chosenWord
 	
@@ -24,6 +23,9 @@ public:
 	void setUsedWord(bool input);
 	bool getUsedWord();
 	void printWord(string word, bool top, bool bottom );
+	void setValues(bool result, char inChar, word inWord);
+	
 	//have this function run through the charGuessed
+
 };
 

@@ -4,7 +4,17 @@
 using std::string;
 
 word::word() {
-
+	//default contructor 
+	this->chosenWord = " ";
+	setLength(0);
+	setUsedWord(false);
+	lettersRight = new bool[length];
+	for (int i = 0; i < length; i++)
+	{
+		lettersRight[i] = false;
+	}
+	charGuessed = new char[1];
+	charGuessed[0] = ' ';
 }
 word::word(string input)
 {
@@ -23,7 +33,6 @@ word::word(string input)
 	{
 		charGuessed[i] = input.at(i);
 	}
-
 }
 
 string word::getWord()
@@ -110,4 +119,23 @@ void word::printWord(string word, bool top, bool bottom)
 	{
 		cout << "|" << endl;
 	}
+}
+
+void word::setValues(bool result, char inChar, word inWord)
+{
+	//set the bool array here 
+	//should be used in main func 
+	//letters guessed are mapped to lettersRight 
+	if (result)
+	{
+		for (int i = 0; i < sizeof(inWord.charGuessed); i++)
+		{
+			if (inChar == inWord.charGuessed[i])
+			{
+				//means they're equal
+				inWord.lettersRight[i] = true;
+			}
+		}
+	}
+
 }
