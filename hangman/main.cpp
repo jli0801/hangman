@@ -123,12 +123,15 @@ void start_menu() {
 		//wordChosen = loadRandomWord;
 		//won = fail
 		//EASY
+		updateBoard();
 		break;
 	case 2:
 		//MEDIUM
+		cout << "This section of the game has not been implemented. " << endl; 
 		break;
 	case 3: 
 		//HARD
+		cout << "This section of the game has not been implemented. " << endl;
 		break;
 	case 'Q':
 	case 'q':
@@ -199,7 +202,7 @@ void updateBoard() //changed the function so that it can handle updates
 				if (guesses[i + 1] == NULL)
 				{
 					cout << endl;
-					break; 
+					
 					//the next element is blank so 
 					//don't print it 
 				}
@@ -218,7 +221,7 @@ void updateBoard() //changed the function so that it can handle updates
 				if (misses[j+1] == NULL)
 				{
 					cout << endl;
-					break;
+					
 					//the next element is blank
 					//so break out of it 
 				}
