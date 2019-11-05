@@ -9,7 +9,7 @@ word::word() {
 word::word(string input)
 {
 	this->chosenWord = input;
-	setLength(input.length()); 
+	setLength(input.length());
 	setUsedWord(false);
 	lettersRight = new bool[length];
 	for (int i = 0; i < length; i++)
