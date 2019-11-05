@@ -17,8 +17,12 @@ word::word(string input)
 		lettersRight[i] = false;
 	}
 	charGuessed = new char[input.size() +1];
+	//char guessed is a char array that holds individual chars of string
 	//populate the char guessed 
-	strcpy(charGuessed, input.c_str());
+	for (int i = 0; i < sizeof(charGuessed); i++)
+	{
+		charGuessed[i] = input.at(i);
+	}
 
 }
 
