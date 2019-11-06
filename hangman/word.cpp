@@ -55,12 +55,11 @@ string word::populateWord(string word)
 		if (!lettersRight[i])
 		{
 			//false
-			output += " _ ";
+			output += "_ ";
 		}
 		else
 		{
 			//true
-			output += " ";
 			output += charGuessed[i];
 			output += " ";
 		}
