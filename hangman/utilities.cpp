@@ -1,10 +1,10 @@
 #include "utilities.h"
 
-bool check_guesses(string input)
+bool check_guesses(char &input, int guesses[])
 {
 	for (int i = 0; i < sizeof(guesses); i++) {
 		//guesses are chars not strings so don't use .compare
-		if (input.at(0) == guesses[i]) {
+		if (input == guesses[i]) {
 			cout << "Already guessed this attempt, please enter another guess";
 			return false;
 		}
@@ -12,17 +12,17 @@ bool check_guesses(string input)
 	return true;
 }
 
-bool check_word(string input)
+bool check_letter(char &input, string &wordChosen)
 {
-	//don't need the for loop	
-	if (wordChosen.compare(input) == 0) {
-		return true;
+	char cstr[wordChosen.size() + 1];
+	wordChosen.copy(cstr, wordChosen.size()+1);
+	cstr[str.size()] = '\0';
+	for (int i = 0; i < wordChosen.size(); i++) {
+		if (input == wordChosen[i]){
+			return true;
+			}
+			return false;
 	}
-	else
-	{
-		return false;
-	}
-
 }
 
 void printMessage(string message, bool printTop, bool printBottom)
