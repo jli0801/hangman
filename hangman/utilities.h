@@ -1,3 +1,10 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+#include <time.h>
+#include <cstring>
+using namespace std;
 
 void printMessage(string, bool, bool);
 
