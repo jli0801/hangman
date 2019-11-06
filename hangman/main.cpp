@@ -115,7 +115,7 @@ void start_menu(string &word) {
 	printMessage("1. Easy", false, false);
 	printMessage(" 2. Medium", false, false);
 	printMessage("3. Hard", false, true);
-	cout << "Please select a number to contune, enter 'q' to quit: ";
+	cout << "Please select a number to continue, enter 'q' to quit: ";
 	cin >> input;
 	switch (input) {
 	case 1:
@@ -138,6 +138,7 @@ void start_menu(string &word) {
 		exit(0);	//exit the program 
 		break;
 	default:
+		cout << "\n INVALID INPUT"<<endl;
 		break;
 	}
 }
@@ -146,7 +147,7 @@ void updateBoard(word user) //changed the function so that it can handle updates
 {
 	string wordOutput = user.populateWord();
 	printMessage("Hangman", true, false);
-	printMessage("|", true, false);
+	printMessage(" |", true, false);
 	if (misses[0] != NULL && tries == 1)
 	{
 		printMessage(" o", false, false); //head
@@ -156,13 +157,13 @@ void updateBoard(word user) //changed the function so that it can handle updates
 	else if (misses[1] != NULL && tries == 2)
 	{
 		printMessage(" o", false, false);
-		printMessage("|", false, false); //body
+		printMessage(" |", false, false); //body
 		printMessage("", false, false);
 	}
 	else if (misses[2] != NULL && tries == 3)
 	{
 		printMessage(" o", false, false);
-		printMessage("|'\'", false, false); //left arm IDK IF THE SYNTAX RIGHT
+		printMessage(" |", false, false); //left arm IDK IF THE SYNTAX RIGHT
 		printMessage("", false, false);
 	}
 	else if (misses[3] != NULL && tries == 4)
