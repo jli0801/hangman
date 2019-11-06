@@ -22,67 +22,73 @@ bool won;
 bool start;
 
 //features
-void start_menu();
+void start_menu(string &word);
 void updateBoard(); //changing game_start to func as a update board 
 //void game_start(istream& in); //have the user guess in a word and update the guesses and misses.
 
-bool check_guesses(string input);
-bool check_word(string input);
-
-
-
 int main()
 {
+	string inputUser = "";
+	int userChoice = 0;
 	//initialize variables 
 	won = false; 
 	start = true;
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
 	
-		if (start)
+	while (!won) {
+		start_menu(wordChosen);
+		//if won is true and we want to prompt user if they want to play again
+
+		updateBoard();
+
+		cout << "Guess a letter/word: " << endl;
+
+		cin >> inputUser; //could be a char or word
+		//if (check_letter(inputUser) && check_word(inputUser))
+		if (false)
 		{
-			start_menu();
-			start = false; 
-			//THIS WILL BECOME TRUE WHEN THEY'RE DONE WITH A GAME
+			//they found a letter or word from the chosen word
+			updateBoard();
 		}
 		else
 		{
-			//start the game 
-			wordChosen = loadRandomWord("wordset.txt");
-			usersWord = word(wordChosen);
-			cout << "reached" << endl;
-			updateBoard();
-			while (!won)
-			{
-				cout << "Guess a letter/word." << endl;
-				string inputUser;
-				cin >> inputUser; //could be a char or word
-				if (check_guesses(inputUser) && check_word(inputUser))
-				{
-					//they found a letter or word from the chosen word
-					updateBoard();
-				}
-				else
-				{
-					//increment and store the guesses/misses
-					guesses[guessPointer] = inputUser.at(1);
-					guessPointer++;
-					misses[tries] = inputUser.at(1); //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
-					tries++;
-					updateBoard(); //update board 
+			//increment and store the guesses/misses
+			guesses[guessPointer] = inputUser.at(1);
+			guessPointer++;
+			misses[tries] = inputUser.at(1); //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
+			tries++;
+			updateBoard(); //update board 
 
+
+			if (won) {
+				cout << "\nWould you like to play again?\n1. Yes\n2. No\nChoice: " << endl;
+				cin >> userChoice;
+				switch (userChoice) {
+				case 1:
+					//user will play again
+					won = false;
+					break;
+				case 2:
+					won = true;
+					break;
+				default:
+					cerr << "Error, please try again" << endl;
+					won = false;
+					break;
 				}
+
 			}
-			//when it gets out of the loop you need to prompt the user if they want to start again + tell them if they lost or won
 		}
-	
-	
+	}
 }
 
 
 
-void start_menu() {
+void start_menu(string &word) {
 	int input;
+	ifstream myFile;
+
 	printMessage("Hangman Game", true, false);
 	printMessage("ESE224 Fall 2019", true, false);
 	printMessage("Group Members:", true, false);
@@ -98,8 +104,9 @@ void start_menu() {
 	cin >> input;
 	switch (input) {
 	case 1:
-		system("cls");
 		//input file name here to be used for easy
+		word = loadRandomWord("wordset.txt");
+		system("cls");
 		break;
 	case 2:
 		//MEDIUM
@@ -117,7 +124,6 @@ void start_menu() {
 	default:
 		break;
 	}
-
 }
 
 void updateBoard() //changed the function so that it can handle updates 
@@ -208,43 +214,3 @@ void updateBoard() //changed the function so that it can handle updates
 	}
 }
 
-/*void game_start(istream& in) { //handle in guesses and misses from user input
-	cout << "Guesses: ";
-	for (int i = 0; i < sizeof(guesses); i++)
-	{
-		if (guesses[i] != NULL)
-		{
-			cout << guesses[i] << " "; //edited so it doesn't mesh together
-			if (i < (sizeof(guesses) - 1))
-			{
-				if (guesses[i + 1] == NULL)
-				{
-					cout << endl;
-
-					//the next element is blank so 
-					//don't print it 
-				}
-			}
-		}
-	}
-	cout << endl;
-	cout << "Misses: ";
-	for (int j = 0; j < sizeof(misses); j++)
-	{
-		if (misses[j] != NULL)
-		{
-			cout << misses[j] << " ";
-			if (j < (sizeof(misses) - 1))
-			{
-				if (misses[j + 1] == NULL)
-				{
-					cout << endl;
-
-					//the next element is blank
-					//so break out of it 
-				}
-			}
-
-		}
-	}
-}*/
