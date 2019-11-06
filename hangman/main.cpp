@@ -28,7 +28,7 @@ void updateBoard(); //changing game_start to func as a update board
 
 int main()
 {
-	string inputUser = "";
+	char inputUser;
 	int userChoice = 0;
 	//initialize variables 
 	won = false; 
@@ -36,32 +36,33 @@ int main()
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
 	
+	//open start menu, choose a file, and pick a word from file to input into wordchosen
+	start_menu(wordChosen);
+	//have to input a word from a file before populate word can be used in update board
+	usersWord = word(wordChosen);
+	cout << wordChosen << endl;
+	updateBoard();
 	while (!won) {
-		//open start menu, choose a file, and pick a word from file to input into wordchosen
-		start_menu(wordChosen);
-		//have to input a word from a file before populate word can be used in update board
-		usersWord = word(wordChosen);
-		cout << wordChosen << endl;
-		updateBoard();
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
-
-		//if (check_letter(inputUser) && check_guesses(inputUser))
-		if(false)
-		{
+		
+		if (usersWord.setValues(inputUser, wordChosen) && (check_guesses(inputUser, guesses)))
+		{	
 			//they found a letter or word from the chosen word
+			guesses[guessPointer] = inputUser;
 			updateBoard();
 		}
 		else
 		{
 			//increment and store the guesses/misses
-			guesses[guessPointer] = inputUser.at(1);
+			guesses[guessPointer] = inputUser;
 			guessPointer++;
-			misses[tries] = inputUser.at(1); //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
+			misses[tries] = inputUser; //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
 			tries++;
 			updateBoard(); //update board 
 		}
 
+		
 		//if won is true and we want to prompt user if they want to play again
 		if (won) {
 			cout << "\nWould you like to play again?\n1. Yes\n2. No\nChoice: " << endl;
@@ -82,8 +83,6 @@ int main()
 		}
 	}
 }
-
-
 
 void start_menu(string &word) {
 	int input;
