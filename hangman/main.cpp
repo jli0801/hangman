@@ -23,34 +23,38 @@ bool start;
 
 //features
 void start_menu(string &word);
-void updateBoard(); //changing game_start to func as a update board 
-//void game_start(istream& in); //have the user guess in a word and update the guesses and misses.
+void updateBoard(word user); //changing game_start to func as a update board 
+
+
 
 int main()
 {
 	char inputUser;
-	int userChoice = 0;
+	//start of the initializer
 	//initialize variables 
-	won = false; 
+	won = false;
 	start = true;
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
-	
+
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
 	start_menu(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
-	usersWord = word(wordChosen);
+	word usersWord = word(wordChosen);
 	cout << wordChosen << endl;
-	updateBoard();
+	updateBoard(usersWord);
+	//end of initialize 
+
 	while (!won) {
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
-		
-		if (usersWord.setValues(inputUser, wordChosen) && (check_guesses(inputUser, guesses)))
-		{	
+		system("cls");
+		if (usersWord.setValues(inputUser, usersWord) && (check_guesses(inputUser, guesses)))
+		{
 			//they found a letter or word from the chosen word
 			guesses[guessPointer] = inputUser;
-			updateBoard();
+			guessPointer++;
+			updateBoard(usersWord);
 		}
 		else
 		{
@@ -59,30 +63,42 @@ int main()
 			guessPointer++;
 			misses[tries] = inputUser; //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
 			tries++;
-			updateBoard(); //update board 
+			updateBoard(usersWord); //update board 
 		}
+		//ALWAYS CHECK IF THE GAME IS DONE BY THE END
+		if (usersWord.checkWholeWord(usersWord))
+		{
+			won = true;
+			//if won is true and we want to prompt user if they want to play again
+			if (won) {
+				int userChoice = 0;
+				system("cls");
+				cout << "\nWould you like to play again?\n1. Yes\n2. No\nChoice: " << endl;
+				cin >> userChoice;
+				switch (userChoice) {
+				case 1:
+					//user will play again
 
-		
-		//if won is true and we want to prompt user if they want to play again
-		if (won) {
-			cout << "\nWould you like to play again?\n1. Yes\n2. No\nChoice: " << endl;
-			cin >> userChoice;
-			switch (userChoice) {
-			case 1:
-				//user will play again
-				won = false;
-				break;
-			case 2:
-				won = true;
-				break;
-			default:
-				cerr << "Error, please try again" << endl;
-				won = false;
-				break;
+					system("cls"); //clear
+					won = false;
+					break;
+				case 2:
+					won = true;
+					break;
+				default:
+					cerr << "Error, please try again" << endl;
+					won = false;
+					break;
+				}
 			}
 		}
 	}
+	
+	
+	
 }
+
+
 
 void start_menu(string &word) {
 	int input;
@@ -126,26 +142,26 @@ void start_menu(string &word) {
 	}
 }
 
-void updateBoard() //changed the function so that it can handle updates 
+void updateBoard(word user) //changed the function so that it can handle updates 
 {
-	string wordOutput = usersWord.populateWord();
+	string wordOutput = user.populateWord();
 	printMessage("Hangman", true, false);
 	printMessage("|", true, false);
 	if (misses[0] != NULL && tries == 1)
 	{
-		printMessage("o", false, false); //head
+		printMessage(" o", false, false); //head
 		printMessage("", false, false);
 		printMessage("", false, false);
 	}
 	else if (misses[1] != NULL && tries == 2)
 	{
-		printMessage("o", false, false);
+		printMessage(" o", false, false);
 		printMessage("|", false, false); //body
 		printMessage("", false, false);
 	}
 	else if (misses[2] != NULL && tries == 3)
 	{
-		printMessage("o", false, false);
+		printMessage(" o", false, false);
 		printMessage("|'\'", false, false); //left arm IDK IF THE SYNTAX RIGHT
 		printMessage("", false, false);
 	}

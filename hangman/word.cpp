@@ -7,24 +7,23 @@ word::word() {
 	//default contructor 
 	this->chosenWord = " ";
 	setUsedWord(false);
-	lettersRight = new bool[chosenWord.length()];
-	for (int i = 0; i < chosenWord.length(); i++)
-	{
-		lettersRight[i] = false;
-	}
+	lettersRight = new bool[1];
+	lettersRight[0] = false;
+	
 	charGuessed = new char[1];
 	charGuessed[0] = ' ';
+
 }
 word::word(string input)
 {
 	this->chosenWord = input;
 	setUsedWord(false);
-	lettersRight = new bool[chosenWord.length()];
-	for (int i = 0; i < chosenWord.length(); i++)
+	lettersRight = new bool[(input.size() + 1)];
+	for (int i = 0; i < sizeof(lettersRight); i++)
 	{
 		lettersRight[i] = false;
 	}
-	charGuessed = new char[input.size() +1];
+	charGuessed = new char[(input.size() +1)];
 	//char guessed is a char array that holds individual chars of string
 	//populate the char guessed 
 	for (int i = 0; i < sizeof(charGuessed); i++)
@@ -43,7 +42,7 @@ string word::populateWord()
 	string output = "";
 
 	//put the for loop here 
-	for (int i = 0; i < chosenWord.length(); i++)
+	for (int i = 0; i < sizeof(lettersRight)+1; i++)
 	{
 		if (!lettersRight[i])
 		{
@@ -57,7 +56,6 @@ string word::populateWord()
 			output += " ";
 		}
 	}
-	//cout << "output: " << output << endl;
 	return output;
 }
 
@@ -114,15 +112,27 @@ bool word::setValues(char inChar, word inWord)
 	//set the bool array here 
 	//should be used in main func 
 	//letters guessed are mapped to lettersRight 
-
+	bool set = false; 
 	for (int i = 0; i < sizeof(inWord.charGuessed); i++)
 	{
 		if (inChar == inWord.charGuessed[i])
 		{
 			//means they're equal
 			inWord.lettersRight[i] = true;
-			return true;
+			set = true; 
 		}
 	}
-	return false;
+	return set;
+}
+
+bool word::checkWholeWord(word userWord)
+{
+	for (int i = 0; i < sizeof(userWord.charGuessed); i++)
+	{
+		if (!userWord.lettersRight[i])
+		{
+			return false; //should automatically return false if there is a false in char guessed
+		}
+	}
+	return true; //will return true if the for loop goes through
 }

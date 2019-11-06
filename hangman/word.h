@@ -21,7 +21,7 @@ public:
 	bool getUsedWord();
 	void printWord(string word, bool top, bool bottom );
 	bool setValues(char inChar, word inWord);
-	
+	bool checkWholeWord(word userWord);
 	//have this function run through the charGuessed
 
 };
