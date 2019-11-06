@@ -6,10 +6,9 @@ using std::string;
 word::word() {
 	//default contructor 
 	this->chosenWord = " ";
-	setLength(0);
 	setUsedWord(false);
-	lettersRight = new bool[length];
-	for (int i = 0; i < length; i++)
+	lettersRight = new bool[chosenWord.length()];
+	for (int i = 0; i < chosenWord.length(); i++)
 	{
 		lettersRight[i] = false;
 	}
@@ -19,10 +18,9 @@ word::word() {
 word::word(string input)
 {
 	this->chosenWord = input;
-	setLength(input.length());
 	setUsedWord(false);
-	lettersRight = new bool[length];
-	for (int i = 0; i < length; i++)
+	lettersRight = new bool[chosenWord.length()];
+	for (int i = 0; i < chosenWord.length(); i++)
 	{
 		lettersRight[i] = false;
 	}
@@ -40,17 +38,12 @@ string word::getWord()
 	return this->chosenWord;
 }
 
-int word::getLength()
-{
-	return length;
-}
-
-string word::populateWord(string word)
+string word::populateWord()
 {
 	string output = "";
 
 	//put the for loop here 
-	for (int i = 0; i < word.length(); i++)
+	for (int i = 0; i < chosenWord.length(); i++)
 	{
 		if (!lettersRight[i])
 		{
@@ -64,12 +57,8 @@ string word::populateWord(string word)
 			output += " ";
 		}
 	}
+	//cout << "output: " << output << endl;
 	return output;
-}
-
-void word::setLength(int uLength)
-{
-	this->length = uLength;
 }
 
 void word::setUsedWord(bool input)
@@ -120,21 +109,20 @@ void word::printWord(string word, bool top, bool bottom)
 	}
 }
 
-void word::setValues(bool result, char inChar, word inWord)
+bool word::setValues(char inChar, word inWord)
 {
 	//set the bool array here 
 	//should be used in main func 
 	//letters guessed are mapped to lettersRight 
-	if (result)
+
+	for (int i = 0; i < sizeof(inWord.charGuessed); i++)
 	{
-		for (int i = 0; i < sizeof(inWord.charGuessed); i++)
+		if (inChar == inWord.charGuessed[i])
 		{
-			if (inChar == inWord.charGuessed[i])
-			{
-				//means they're equal
-				inWord.lettersRight[i] = true;
-			}
+			//means they're equal
+			inWord.lettersRight[i] = true;
+			return true;
 		}
 	}
-
+	return false;
 }

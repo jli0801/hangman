@@ -17,7 +17,7 @@ char misses[6]; //so it can handle up to 6 misses
 //misses are the wrong letters 
 int tries;
 string wordChosen;
-word usersWord;
+word usersWord; //default construtor is called
 bool won; 
 bool start;
 
@@ -37,16 +37,17 @@ int main()
 	guessPointer = 0; //max is 26
 	
 	while (!won) {
+		//open start menu, choose a file, and pick a word from file to input into wordchosen
 		start_menu(wordChosen);
-		//if won is true and we want to prompt user if they want to play again
-
+		//have to input a word from a file before populate word can be used in update board
+		usersWord = word(wordChosen);
+		cout << wordChosen << endl;
 		updateBoard();
-
-		cout << "Guess a letter/word: " << endl;
-
+		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
-		//if (check_letter(inputUser) && check_word(inputUser))
-		if (false)
+
+		//if (check_letter(inputUser) && check_guesses(inputUser))
+		if(false)
 		{
 			//they found a letter or word from the chosen word
 			updateBoard();
@@ -59,25 +60,24 @@ int main()
 			misses[tries] = inputUser.at(1); //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
 			tries++;
 			updateBoard(); //update board 
+		}
 
-
-			if (won) {
-				cout << "\nWould you like to play again?\n1. Yes\n2. No\nChoice: " << endl;
-				cin >> userChoice;
-				switch (userChoice) {
-				case 1:
-					//user will play again
-					won = false;
-					break;
-				case 2:
-					won = true;
-					break;
-				default:
-					cerr << "Error, please try again" << endl;
-					won = false;
-					break;
-				}
-
+		//if won is true and we want to prompt user if they want to play again
+		if (won) {
+			cout << "\nWould you like to play again?\n1. Yes\n2. No\nChoice: " << endl;
+			cin >> userChoice;
+			switch (userChoice) {
+			case 1:
+				//user will play again
+				won = false;
+				break;
+			case 2:
+				won = true;
+				break;
+			default:
+				cerr << "Error, please try again" << endl;
+				won = false;
+				break;
 			}
 		}
 	}
@@ -106,6 +106,7 @@ void start_menu(string &word) {
 	case 1:
 		//input file name here to be used for easy
 		word = loadRandomWord("wordset.txt");
+		
 		system("cls");
 		break;
 	case 2:
@@ -128,40 +129,40 @@ void start_menu(string &word) {
 
 void updateBoard() //changed the function so that it can handle updates 
 {
-	string wordOutput = usersWord.populateWord(usersWord.getWord());
+	string wordOutput = usersWord.populateWord();
 	printMessage("Hangman", true, false);
 	printMessage("|", true, false);
-	if (guesses[0] != NULL && tries == 1)
+	if (misses[0] != NULL && tries == 1)
 	{
 		printMessage("o", false, false); //head
 		printMessage("", false, false);
 		printMessage("", false, false);
 	}
-	else if (guesses[1] != NULL && tries == 2)
+	else if (misses[1] != NULL && tries == 2)
 	{
 		printMessage("o", false, false);
 		printMessage("|", false, false); //body
 		printMessage("", false, false);
 	}
-	else if (guesses[2] != NULL && tries == 3)
+	else if (misses[2] != NULL && tries == 3)
 	{
 		printMessage("o", false, false);
 		printMessage("|'\'", false, false); //left arm IDK IF THE SYNTAX RIGHT
 		printMessage("", false, false);
 	}
-	else if (guesses[3] != NULL && tries == 4)
+	else if (misses[3] != NULL && tries == 4)
 	{
 		printMessage(" o", false, false);
 		printMessage("/|'\'", false, false); //BODY LEFT AND RIGHT ARM
 		printMessage("", false, false);
 	}
-	else if (guesses[4] != NULL && tries == 5)
+	else if (misses[4] != NULL && tries == 5)
 	{
 		printMessage(" o", false, false);
 		printMessage("/|'\'", false, false); 
 		printMessage("'\'", false, false);	//left foot
 	}
-	else if(guesses[5] != NULL && tries == 6)
+	else if(misses[5] != NULL && tries == 6)
 	{
 		printMessage(" o", false, false);
 		printMessage("/|'\'", false, false);
@@ -174,7 +175,7 @@ void updateBoard() //changed the function so that it can handle updates
 		printMessage("", false, false);
 	}
 	printMessage(wordOutput, true, true );
-	cout << "Guesses: ";
+	cout << "\nGuesses: ";
 	for (int i = 0; i < sizeof(guesses); i++)
 	{
 		if (guesses[i] != NULL)
@@ -192,8 +193,7 @@ void updateBoard() //changed the function so that it can handle updates
 			}
 		}
 	}
-	cout << endl;
-	cout << "Misses: ";
+	cout << "\nMisses: ";
 	for (int j = 0; j < sizeof(misses); j++)
 	{
 		if (misses[j] != NULL)

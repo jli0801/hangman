@@ -7,7 +7,6 @@ class word
 {
 private:
 	string chosenWord;
-	int length = 0;
 	bool usedWord = false;
 	bool *lettersRight;
 	char *charGuessed;
@@ -17,13 +16,11 @@ public:
 	word();
 	word(string input);
 	string getWord();
-	int getLength();
-	string populateWord(string);
-	void setLength(int);
+	string populateWord();
 	void setUsedWord(bool input);
 	bool getUsedWord();
 	void printWord(string word, bool top, bool bottom );
-	void setValues(bool result, char inChar, word inWord);
+	bool setValues(char inChar, word inWord);
 	
 	//have this function run through the charGuessed
 
