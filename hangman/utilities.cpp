@@ -72,15 +72,4 @@ bool check_guesses(char input, int guesses[])//checks to see if the new user inp
 	return true;//if not already guessed, can proceed to game
 }
 
-bool check_letter(char input, string wordChosen)
-{
-	char cstr[wordChosen.length() + 1];
-	wordChosen.copy(cstr, wordChosen.size() + 1);
-	cstr[str.size()] = '\0';
-	for (int i = 0; i < cstr.size(); i++) {
-		if (input == cstr[i]) {
-			return true;//if guessed right
-		}
-	}
-	return false;
-}
+
