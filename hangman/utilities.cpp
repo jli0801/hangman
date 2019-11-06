@@ -1,29 +1,12 @@
 #include "utilities.h"
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+#include <time.h>
+#include <cstring>
 
-bool check_guesses(char &input, int guesses[])
-{
-	for (int i = 0; i < sizeof(guesses); i++) {
-		//guesses are chars not strings so don't use .compare
-		if (input == guesses[i]) {
-			cout << "Already guessed this attempt, please enter another guess";
-			return false;
-		}
-	}
-	return true;
-}
-
-bool check_letter(char &input, string &wordChosen)
-{
-	char cstr[wordChosen.size() + 1];
-	wordChosen.copy(cstr, wordChosen.size()+1);
-	cstr[str.size()] = '\0';
-	for (int i = 0; i < wordChosen.size(); i++) {
-		if (input == wordChosen[i]){
-			return true;
-			}
-			return false;
-	}
-}
+using namespace std;
 
 void printMessage(string message, bool printTop, bool printBottom)
 {
@@ -76,4 +59,28 @@ string loadRandomWord(string path)
 		file.close();
 	}
 	return word;
+}
+
+bool check_guesses(char input, int guesses[])//checks to see if the new user input has been already guessed
+{
+	for (int i = 0; i < sizeof(guesses); i++) {
+		if (input == guesses[i]) {//if the user inputs an already guessed letter, they will be asked to make a new guess and this will not count as a guess
+			cout << "Already guessed this attempt, please enter another guess";
+			return false;
+		}
+	}
+	return true;//if not already guessed, can proceed to game
+}
+
+bool check_letter(char input, string wordChosen)
+{
+	char cstr[wordChosen.length() + 1];
+	wordChosen.copy(cstr, wordChosen.size() + 1);
+	cstr[str.size()] = '\0';
+	for (int i = 0; i < cstr.size(); i++) {
+		if (input == cstr[i]) {
+			return true;//if guessed right
+		}
+	}
+	return false;
 }
