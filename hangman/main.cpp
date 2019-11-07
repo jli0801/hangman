@@ -42,7 +42,7 @@ int main()
 	start_menu(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
 	word usersWord = word(wordChosen);
-	cout << usersWord.getWord() << endl;
+	//cout << usersWord.getWord() << endl;
 	updateBoard(usersWord);
 
 	do{
@@ -99,11 +99,14 @@ int main()
 				switch (userChoice) {
 				case 1:
 					//user will play again
-
-					init(wordChosen);
+					cout << "The reset part will be implemented in the second part." << endl;
+					exit(0);
+					break; 
+					//CURRENTLY THIS HANGMAN ONLY HANDLES ONE GAME 
+					/*init(wordChosen);
 					//system("cls"); //clear
 					restart = true;
-					break;
+					break;*/
 
 				case 2:
 					//LATER ON WE CAN BRING THEM BACK TO THE START MENU
