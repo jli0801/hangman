@@ -25,6 +25,5 @@ public:
 	bool setValues(char inChar);
 	bool checkWholeWord();
 	//have this function run through the charGuessed
-
 };
 

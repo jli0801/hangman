@@ -25,7 +25,7 @@ bool restart;
 void start_menu(string &word);
 void newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
-void init();
+void init(string&);
 
 
 int main()
@@ -44,13 +44,18 @@ int main()
 	word usersWord = word(wordChosen);
 	cout << usersWord.getWord() << endl;
 	updateBoard(usersWord);
+
 	do{
-		
-		/*if (restart)
+		cout << "restart sucessful" << endl;
+
+		if (restart)
 		{
+			cout << "restart sucessful" << endl;
 			newWord(wordChosen);
+			system("cls"); //clear
+			cout << usersWord.getWord() << endl;
 			updateBoard(usersWord);
-		}*/
+		}
 		
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
@@ -96,16 +101,15 @@ int main()
 				case 1:
 					//user will play again
 					
-					init();
-					usersWord = word();
-					system("cls"); //clear
-					//restart = true;
-					newWord(wordChosen);
-					updateBoard(usersWord);
-					won = false;
+					init(wordChosen);
+					cout << "blank" << endl;
+					//system("cls"); //clear
+					restart = true;
+					cout << "Restarted" << endl;
 					break;
 
 				case 2:
+					//LATER ON WE CAN BRING THEM BACK TO THE START MENU
 					printMessage("Goodbye!", true, true);
 					break;
 				default:
@@ -123,12 +127,14 @@ int main()
 
 
 
-void init()
+void init(string& wordIn)
 {
 	//initialize variables 
 	won = false;
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
+	wordIn = loadRandomWord("wordset.txt");
+
 	for (int i = 0; i < sizeof(guesses); i++)
 	{
 		guesses[i] = NULL;
@@ -142,16 +148,13 @@ void init()
 
 void newWord(string& wordIn)
 {
-	int input;
-	ifstream myFile;
 	wordIn = loadRandomWord("wordset.txt");
-	word usersWord = word(wordIn);
+	//word usersWord = word(wordIn);
 	system("cls");
 }
 
 void start_menu(string &word) {
 	int input;
-	ifstream myFile;
 
 	printMessage("Hangman Game", true, false);
 	printMessage("ESE224 Fall 2019", true, false);
