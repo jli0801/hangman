@@ -120,7 +120,7 @@ bool word::setValues(char inChar)
 	//should be used in main func 
 	//letters guessed are mapped to lettersRight 
 	bool set = false; 
-	for (int i = 0; i < sizeof(this->charGuessed); i++)
+	for (int i = 0; i < this->getLength(); i++)
 	{
 		if (inChar == this->charGuessed[i])
 		{
@@ -134,7 +134,7 @@ bool word::setValues(char inChar)
 
 bool word::checkWholeWord()
 {
-	for (int i = 0; i < sizeof(this->charGuessed); i++)
+	for (int i = 0; i < this->getLength(); i++)
 	{
 		if (!this->lettersRight[i])
 		{

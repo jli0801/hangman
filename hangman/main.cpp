@@ -19,34 +19,32 @@ int tries;
 string wordChosen;
 word usersWord; //default construtor is called
 bool won; 
-bool start;
+bool restart;
 
 //features
 void start_menu(string &word);
+void newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
-
+void init();
+void board();
 
 
 int main()
 {
 	char inputUser;
 	//start of the initializer
-	//initialize variables 
-	won = false;
-	start = true;
-	tries = 0; //max is 6 
-	guessPointer = 0; //max is 26
-
+	init();
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
-	start_menu(wordChosen);
-	//have to input a word from a file before populate word can be used in update board
-	word usersWord = word(wordChosen);
-	cout << usersWord.getWord() << endl;
-
-	updateBoard(usersWord);
-	//end of initialize 
-
+	restart = false;
+	board();
+	
 	while (!won) {
+		
+		if (restart)
+		{
+			newWord(wordChosen);
+		}
+		
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
 		system("cls");
@@ -55,7 +53,6 @@ int main()
 			//they found a letter or word from the chosen word
 			guesses[guessPointer] = inputUser;
 			guessPointer++;
-			updateBoard(usersWord);
 		}
 		else
 		{
@@ -63,9 +60,10 @@ int main()
 			guesses[guessPointer] = inputUser;
 			guessPointer++;
 			misses[tries] = inputUser; //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
-			tries++;
-			updateBoard(usersWord); //update board 
+			tries++;	
 		}
+		updateBoard(usersWord);
+		
 		//ALWAYS CHECK IF THE GAME IS DONE BY THE END
 		if (usersWord.checkWholeWord())
 		{
@@ -79,10 +77,13 @@ int main()
 				switch (userChoice) {
 				case 1:
 					//user will play again
-
+					
+					init();
 					system("cls"); //clear
+					restart = true;
 					won = false;
 					break;
+
 				case 2:
 					won = true;
 					break;
@@ -99,7 +100,40 @@ int main()
 	
 }
 
+void board()
+{
+	//start menu 
+	start_menu(wordChosen);
+	//have to input a word from a file before populate word can be used in update board
+	word usersWord = word(wordChosen);
+	cout << usersWord.getWord() << endl;
+	updateBoard(usersWord);
+}
 
+void init()
+{
+	//initialize variables 
+	won = false;
+	tries = 0; //max is 6 
+	guessPointer = 0; //max is 26
+	for (int i = 0; i < sizeof(guesses); i++)
+	{
+		guesses[i] = NULL;
+	}
+	for (int j = 0; j < sizeof(misses); j++)
+	{
+		misses[j] = NULL;
+	}
+	//end of initialize 
+}
+
+void newWord(string& word)
+{
+	int input;
+	ifstream myFile;
+	word = loadRandomWord("wordset.txt");
+	system("cls");
+}
 
 void start_menu(string &word) {
 	int input;
@@ -128,10 +162,13 @@ void start_menu(string &word) {
 	case 2:
 		//MEDIUM
 		cout << "This section of the game has not been implemented. " << endl; 
+		exit(0);
 		break;
 	case 3: 
 		//HARD
 		cout << "This section of the game has not been implemented. " << endl;
+		exit(0);
+
 		break;
 	case 'Q':
 	case 'q':
@@ -140,6 +177,7 @@ void start_menu(string &word) {
 		break;
 	default:
 		cout << "\n INVALID INPUT"<<endl;
+		exit(0);
 		break;
 	}
 }
@@ -148,42 +186,42 @@ void updateBoard(word user) //changed the function so that it can handle updates
 {
 	string wordOutput = user.populateWord();
 	printMessage("Hangman", true, false);
-	printMessage(" |", true, false);
+	printMessage("|", true, false);
 	if (misses[0] != NULL && tries == 1)
 	{
-		printMessage(" o", false, false); //head
+		printMessage("o", false, false); //head
 		printMessage("", false, false);
 		printMessage("", false, false);
 	}
 	else if (misses[1] != NULL && tries == 2)
 	{
-		printMessage(" o", false, false);
+		printMessage("o", false, false);
 		printMessage(" |", false, false); //body
 		printMessage("", false, false);
 	}
 	else if (misses[2] != NULL && tries == 3)
 	{
-		printMessage(" o", false, false);
+		printMessage("o", false, false);
 		printMessage(" |", false, false); //left arm IDK IF THE SYNTAX RIGHT
 		printMessage("", false, false);
 	}
 	else if (misses[3] != NULL && tries == 4)
 	{
-		printMessage(" o", false, false);
-		printMessage("/|'\'", false, false); //BODY LEFT AND RIGHT ARM
+		printMessage("o", false, false);
+		printMessage("/|\\", false, false); //BODY LEFT AND RIGHT ARM
 		printMessage("", false, false);
 	}
 	else if (misses[4] != NULL && tries == 5)
 	{
-		printMessage(" o", false, false);
-		printMessage("/|'\'", false, false); 
-		printMessage("'\'", false, false);	//left foot
+		printMessage("o", false, false);
+		printMessage("/|\\", false, false); 
+		printMessage("\\", false, false);	//left foot
 	}
 	else if(misses[5] != NULL && tries == 6)
 	{
-		printMessage(" o", false, false);
-		printMessage("/|'\'", false, false);
-		printMessage("/ '\'", false, false);	//WHOLE BODY
+		printMessage("o", false, false);
+		printMessage("/|\\", false, false);
+		printMessage("/ \\", false, false);	//WHOLE BODY
 	}
 	else
 	{
