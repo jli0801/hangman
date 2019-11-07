@@ -15,6 +15,10 @@ word::word() {
 	this->charGuessed[0] = ' ';
 
 }
+word::~word()
+{
+
+}
 word::word(string input)
 {
 	this->chosenWord = input;

@@ -46,11 +46,9 @@ int main()
 	updateBoard(usersWord);
 
 	do{
-		cout << "restart sucessful" << endl;
-
+]
 		if (restart)
 		{
-			cout << "restart sucessful" << endl;
 			newWord(wordChosen);
 			system("cls"); //clear
 			cout << usersWord.getWord() << endl;
@@ -100,12 +98,10 @@ int main()
 				switch (userChoice) {
 				case 1:
 					//user will play again
-					
+
 					init(wordChosen);
-					cout << "blank" << endl;
 					//system("cls"); //clear
 					restart = true;
-					cout << "Restarted" << endl;
 					break;
 
 				case 2:
@@ -134,6 +130,12 @@ void init(string& wordIn)
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
 	wordIn = loadRandomWord("wordset.txt");
+
+	usersWord.~word();
+
+	word usersWord = word(wordChosen);
+
+	cout << wordIn << endl;
 
 	for (int i = 0; i < sizeof(guesses); i++)
 	{
