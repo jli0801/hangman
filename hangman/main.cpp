@@ -49,6 +49,7 @@ int main()
 		if (restart)
 		{
 			newWord(wordChosen);
+			updateBoard(usersWord);
 		}
 		
 		cout << "\nGuess a letter/word: " << endl;
@@ -62,6 +63,11 @@ int main()
 			guessPointer++;
 			updateBoard(usersWord);
 
+		}
+		else if (!check_guesses(inputUser, guesses)) 
+		{
+			updateBoard(usersWord);
+			printMessage("Invalid, Input has already been guessed", true, true);
 		}
 		else
 		{

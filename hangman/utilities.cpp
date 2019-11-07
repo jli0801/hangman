@@ -64,10 +64,8 @@ string loadRandomWord(string path)
 bool check_guesses(char input, char guesses[])//checks to see if the new user input has been already guessed
 {
 	for (int i = 0; i < sizeof(guesses); i++) {
-		if (input == guesses[i]) {//if the user inputs an already guessed letter, they will be asked to make a new guess and this will not count as a guess
-			cout << "Already guessed this attempt, please enter another guess." << endl;
+		if (input == guesses[i]) //if the user inputs an already guessed letter, they will be asked to make a new guess and this will not count as a guess
 			return false;
-		}
 	}
 	return true;//if not already guessed, can proceed to game
 }
