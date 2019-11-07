@@ -42,15 +42,15 @@ int main()
 	start_menu(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
 	word usersWord = word(wordChosen);
-	//cout << usersWord.getWord() << endl;
+	cout << usersWord.getWord() << endl;
 	updateBoard(usersWord);
-	while (!won) {
+	do{
 		
-		if (restart)
+		/*if (restart)
 		{
 			newWord(wordChosen);
 			updateBoard(usersWord);
-		}
+		}*/
 		
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
@@ -67,7 +67,7 @@ int main()
 		else if (!check_guesses(inputUser, guesses)) 
 		{
 			updateBoard(usersWord);
-			printMessage("Invalid, Input has already been guessed", true, true);
+			printMessage("Invalid, Input is invalid/has already been guessed", true, true);
 		}
 		else
 		{
@@ -83,6 +83,8 @@ int main()
 		//ALWAYS CHECK IF THE GAME IS DONE BY THE END
 		if (usersWord.checkWholeWord())
 		{
+			printMessage("Congrations! You Won!", true, true);
+			system("pause");
 			won = true;
 			//if won is true and we want to prompt user if they want to play again
 			if (won) {
@@ -95,13 +97,17 @@ int main()
 					//user will play again
 					
 					init();
+					usersWord = word();
 					system("cls"); //clear
 					//restart = true;
+					newWord(wordChosen);
+					updateBoard(usersWord);
 					won = false;
 					break;
 
 				case 2:
 					won = true;
+					printMessage("Goodbye!", true, true);
 					break;
 				default:
 					cerr << "Error, please try again" << endl;
@@ -110,7 +116,7 @@ int main()
 				}
 			}
 		}
-	}
+	} while (!won);
 	
 	
 	
@@ -140,7 +146,7 @@ void newWord(string& wordIn)
 	int input;
 	ifstream myFile;
 	wordIn = loadRandomWord("wordset.txt");
-	word usersWord = word(wordChosen);
+	word usersWord = word(wordIn);
 	system("cls");
 }
 
@@ -181,7 +187,8 @@ void start_menu(string &word) {
 		break;
 	case 'Q':
 	case 'q':
-		cout << "GoodBye!" << endl;
+		cout << "\n";
+		printMessage("Goodbye!", true, true);
 		exit(0);	//exit the program 
 		break;
 	default:

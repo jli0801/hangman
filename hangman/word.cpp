@@ -60,7 +60,7 @@ string word::populateWord()
 		{
 			//true
 			output += this->charGuessed[i];
-			output += "";
+			output += " ";
 		}
 	}
 	return output;
