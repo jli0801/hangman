@@ -41,7 +41,8 @@ int main()
 	start_menu(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
 	word usersWord = word(wordChosen);
-	cout << wordChosen << endl;
+	cout << usersWord.getWord() << endl;
+
 	updateBoard(usersWord);
 	//end of initialize 
 
@@ -49,7 +50,7 @@ int main()
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
 		system("cls");
-		if (usersWord.setValues(inputUser, usersWord) && (check_guesses(inputUser, guesses)))
+		if (usersWord.setValues(inputUser) && (check_guesses(inputUser, guesses)))
 		{
 			//they found a letter or word from the chosen word
 			guesses[guessPointer] = inputUser;
@@ -66,7 +67,7 @@ int main()
 			updateBoard(usersWord); //update board 
 		}
 		//ALWAYS CHECK IF THE GAME IS DONE BY THE END
-		if (usersWord.checkWholeWord(usersWord))
+		if (usersWord.checkWholeWord())
 		{
 			won = true;
 			//if won is true and we want to prompt user if they want to play again
