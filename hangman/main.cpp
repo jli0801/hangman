@@ -106,7 +106,6 @@ int main()
 					break;
 
 				case 2:
-					won = true;
 					printMessage("Goodbye!", true, true);
 					break;
 				default:
