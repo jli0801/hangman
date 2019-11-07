@@ -148,7 +148,7 @@ void start_menu(string &word) {
 	printMessage("Darren Li", false, true);
 	printMessage("Select Difficulty:", false, false);
 	printMessage("1. Easy", false, false);
-	printMessage(" 2. Medium", false, false);
+	printMessage("2. Medium", false, false);
 	printMessage("3. Hard", false, true);
 	cout << "Please select a number to continue, enter 'q' to quit: ";
 	cin >> input;
@@ -172,11 +172,10 @@ void start_menu(string &word) {
 		break;
 	case 'Q':
 	case 'q':
-		cout << "\nGoodBye!" << endl;
+		cout << "GoodBye!" << endl;
 		exit(0);	//exit the program 
 		break;
 	default:
-		cout << "\n INVALID INPUT"<<endl;
 		exit(0);
 		break;
 	}
@@ -266,6 +265,17 @@ void updateBoard(word user) //changed the function so that it can handle updates
 			}
 
 		}
+	}
+	int m = 0;
+	for (int i = 0; i < sizeof(misses); i++) {
+		if (misses[i] != NULL)
+			m++;
+	}
+	if (m == 6) {
+		cout << "\n";
+		printMessage("     YOU LOSE:(     ",true,true);
+		cout << "\n";
+		exit(0);
 	}
 }
 
