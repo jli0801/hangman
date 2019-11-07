@@ -46,15 +46,16 @@ int main()
 	updateBoard(usersWord);
 
 	do{
-]
+
 		if (restart)
 		{
-			newWord(wordChosen);
+			//newWord(wordChosen);
 			system("cls"); //clear
 			cout << usersWord.getWord() << endl;
 			updateBoard(usersWord);
 		}
-		
+		cout << usersWord.getWord() << endl;
+
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
 		system("cls");
