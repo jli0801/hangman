@@ -26,18 +26,24 @@ void start_menu(string &word);
 void newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
 void init();
-void board();
 
 
 int main()
 {
 	char inputUser;
 	//start of the initializer
-	init();
+	won = false;
+	tries = 0; //max is 6 
+	guessPointer = 0; //max is 26
+
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
 	restart = false;
-	board();
-	
+
+	start_menu(wordChosen);
+	//have to input a word from a file before populate word can be used in update board
+	word usersWord = word(wordChosen);
+	//cout << usersWord.getWord() << endl;
+	updateBoard(usersWord);
 	while (!won) {
 		
 		if (restart)
@@ -48,11 +54,14 @@ int main()
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
 		system("cls");
+		//cout << usersWord.getWord();
 		if (usersWord.setValues(inputUser) && (check_guesses(inputUser, guesses)))
 		{
 			//they found a letter or word from the chosen word
 			guesses[guessPointer] = inputUser;
 			guessPointer++;
+			updateBoard(usersWord);
+
 		}
 		else
 		{
@@ -61,9 +70,10 @@ int main()
 			guessPointer++;
 			misses[tries] = inputUser; //CHANGE THIS LATER SO WE CAN TAKE IN MULTIPLE LETTERED WORDS
 			tries++;	
+			updateBoard(usersWord);
+
 		}
-		updateBoard(usersWord);
-		
+
 		//ALWAYS CHECK IF THE GAME IS DONE BY THE END
 		if (usersWord.checkWholeWord())
 		{
@@ -80,7 +90,7 @@ int main()
 					
 					init();
 					system("cls"); //clear
-					restart = true;
+					//restart = true;
 					won = false;
 					break;
 
@@ -100,15 +110,7 @@ int main()
 	
 }
 
-void board()
-{
-	//start menu 
-	start_menu(wordChosen);
-	//have to input a word from a file before populate word can be used in update board
-	word usersWord = word(wordChosen);
-	cout << usersWord.getWord() << endl;
-	updateBoard(usersWord);
-}
+
 
 void init()
 {
@@ -127,11 +129,12 @@ void init()
 	//end of initialize 
 }
 
-void newWord(string& word)
+void newWord(string& wordIn)
 {
 	int input;
 	ifstream myFile;
-	word = loadRandomWord("wordset.txt");
+	wordIn = loadRandomWord("wordset.txt");
+	word usersWord = word(wordChosen);
 	system("cls");
 }
 
@@ -277,5 +280,6 @@ void updateBoard(word user) //changed the function so that it can handle updates
 		cout << "\n";
 		exit(0);
 	}
+
 }
 
