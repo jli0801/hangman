@@ -87,7 +87,7 @@ int main()
 		//ALWAYS CHECK IF THE GAME IS DONE BY THE END
 		if (usersWord.checkWholeWord())
 		{
-			printMessage("Congrations! You Won!", true, true);
+			printMessage("Congratulations! You Won!", true, true);
 			system("pause");
 			won = true;
 			//if won is true and we want to prompt user if they want to play again
