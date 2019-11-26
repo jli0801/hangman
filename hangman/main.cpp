@@ -161,7 +161,8 @@ void newWord(string& wordIn)
 
 void start_menu(string &word) {
 	int input;
-
+	string userName;
+	string password;
 	printMessage("Hangman Game", true, false);
 	printMessage("ESE224 Fall 2019", true, false);
 	printMessage("Group Members:", true, false);
@@ -169,29 +170,60 @@ void start_menu(string &word) {
 	printMessage("Dorothy Lee", false, false);
 	printMessage("Lily Li", false, false);
 	printMessage("Darren Li", false, true);
-	printMessage("Select Difficulty:", false, false);
-	printMessage("1. Easy", false, false);
-	printMessage("2. Medium", false, false);
-	printMessage("3. Hard", false, true);
+	printMessage("1. Start a new game", false, false);
+	printMessage("2. Sign in as User", false, false);
+	printMessage("3. Sign in as Admin", false, true);
 	cout << "Please select a number to continue, enter 'q' to quit: ";
 	cin >> input;
 	switch (input) {
 	case 1:
-		//input file name here to be used for easy
-		word = loadRandomWord("wordset.txt");
-		
-		system("cls");
+		printMessage("Hangman Game", true, false);
+		printMessage("ESE224 Fall 2019", true, false);
+		printMessage("Group Members:", true, false);
+		printMessage("Jessica Li", false, false);
+		printMessage("Dorothy Lee", false, false);
+		printMessage("Lily Li", false, false);
+		printMessage("Darren Li", false, true);
+		printMessage("Select Difficulty:", false, false);
+		printMessage("1. Easy", false, false);
+		printMessage("2. Medium", false, false);
+		printMessage("3. Hard", false, true);
+		cout << "Please select a number to continue, enter 'q' to quit: ";
+		int inputGame;
+		cin >> inputGame;
+		switch (inputGame)
+		{
+			case 1 : 
+				cin >> input;
+				word = loadRandomWord("wordset.txt");
+				system("cls");
+			case 2 :
+				//MEDIUM
+			case 3 :
+				//HARD
+			case 'Q':
+			case 'q':
+				cout << "\n";
+				printMessage("Goodbye!", true, true);
+				exit(0);	//exit the program 
+				break;
+			default:
+				exit(0);
+				break;
+		}
 		break;
 	case 2:
-		//MEDIUM
-		cout << "This section of the game has not been implemented. " << endl; 
+		//LOG IN AS USER 
+		
+		cout << "Please enter your user name. " << endl;
+		cin >> userName;
+		cout << "Please enter your password. " << endl;
+		cin >> password;
 		exit(0);
 		break;
 	case 3: 
-		//HARD
-		cout << "This section of the game has not been implemented. " << endl;
+		//LOG IN AS ADMIN 
 		exit(0);
-
 		break;
 	case 'Q':
 	case 'q':
