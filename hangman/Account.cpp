@@ -35,9 +35,9 @@ bool Account::Login() {
 }
 
 string Account::getName() {
-	return name;
+	return Account::name;
 }
 
 string Account::getPassword() {
-	return password;
+	return Account::password;
 }
