@@ -1,5 +1,6 @@
 #include "User.h"
-
+#include <iomanip>
+#include <stdio.h>
 User::User() : Account()
 {
 	wins = 0;
@@ -18,4 +19,63 @@ User::User(string n, string p, int w, int l, int wp, int ws, string lp, bool pw)
 	winStreak = ws;
 	lastPlay = lp;
 	prevWin = pw;
+}
+
+int User::getWins()
+{
+	return User::wins;
+}
+
+void User::setWins(int w)
+{
+	wins = w;
+}
+
+int User::getLoses()
+{
+	return User::loses;
+}
+
+void User::setLoses(int l)
+{
+	loses = l;
+}
+
+double User::getWinPct()
+{
+	return User::winPct;
+}
+
+string User::getLastPlay()
+{
+	return User::lastPlay;
+}
+
+bool User::getPrevWin()
+{
+	return User::prevWin;
+}
+
+void User::setPrevWin(bool p)
+{
+	prevWin = p;
+}
+
+void User::writeHistoryToFile()
+{
+	//rewrite to the same file name to override it 
+
+	//HOW TO: 
+	//read the entire file 
+	//BUT FOR THE USER (if, else) input the new info 
+	//call updateFile() from utilities 
+}
+
+void User::printHistory()
+{
+	cout << "Wins: " << this->getWins() << endl;
+	cout << "Loses: " << this->getLoses() << endl;
+	cout << "Winning Percentage: " << this->getWinPct() << "%" << endl;
+	cout << "Last Play: " << this->getLastPlay() << endl;
+	cout << "Previous Win? " << this->getPrevWin() << endl;
 }
