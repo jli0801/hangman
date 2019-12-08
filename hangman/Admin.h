@@ -8,8 +8,9 @@ private:
 public:
 	Admin();
 	Admin(string n, string p);
-	void Sort();
-	void Add();
-	void Delete();
-
+	bool login();
+	void sort();
+	void add(string word);
+	void delete_word(string word);
+	void sortVector(vector<string> & v);
 };
