@@ -50,9 +50,15 @@
     <ClInclude Include="Admin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="wordset.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\UserAccountHistory.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
