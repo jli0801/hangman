@@ -10,3 +10,7 @@ Account::Account(string n, string p) : name(n), password(p)
 {
 
 }
+
+void Login() {
+
+}

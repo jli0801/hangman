@@ -8,5 +8,5 @@ private:
 public:
 	Account();
 	Account(string n, string p);
-	Login();
+	void Login();
 };
