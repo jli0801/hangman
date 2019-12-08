@@ -48,18 +48,19 @@ void Admin::delete_word(string word) {
 
 void sortVector(vector<string>& v) {
 	//using selection sort of max index
-	int size = v.size();
+	int size = v.size(), tempIndex;
 	string min, temp;
 	for (int i = 0; i < size - 1; i++) {
 		min = v[i];
 		for (int j = i + 1; j < size; j++) {
 			if (v[j].compare(min) < 0) {
 				min = v[j];
+				tempIndex = j;
 			}
 		}
-		temp = min;
-		min = v[i];
-		v[i] = temp;
+		temp = v[i];
+		v[i] = min;
+		v[tempIndex] = temp;
 	}
 }
 
