@@ -79,3 +79,20 @@ void User::printHistory()
 	cout << "Last Play: " << this->getLastPlay() << endl;
 	cout << "Previous Win? " << this->getPrevWin() << endl;
 }
+void User::loadFile()
+{
+	//create a new user for each line 
+	ifstream file("UserAccountHistory.txt");
+	if (file.is_open())
+	{
+		//able to open 
+	}
+
+}
+void User::updateFile()
+{
+	//so they're updating u's 
+	//change the LIST first 
+	//then rewrite over the exsisting txt file with the list's info
+
+}

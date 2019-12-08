@@ -72,23 +72,8 @@ bool check_guesses(char input, char guesses[])//checks to see if the new user in
 	return true;//if not already guessed, can proceed to game
 }
 
-void loadFile()
-{
-	//create a new user for each line 
-	ifstream file("UserAccountHistory.txt"); 
-	if (file.is_open())
-	{
-		//able to open 
-	}
-	
-}
 
-void updateFile(User u)
-{
-	//so they're updating u's 
-	//change the LIST first 
-	//then rewrite over the exsisting txt file with the list's info
 
-}
+
 
 

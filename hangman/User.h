@@ -29,4 +29,6 @@ public:
 	//void playGame();
 	void writeHistoryToFile();
 	void printHistory();
+	void loadFile();
+	void updateFile();
 };
