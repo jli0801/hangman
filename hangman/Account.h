@@ -1,5 +1,7 @@
 using namespace std;
 #include<string>
+#include<fstream>
+#include<iostream>
 
 class Account {
 private:
@@ -8,5 +10,7 @@ private:
 public:
 	Account();
 	Account(string n, string p);
-	void Login();
+	bool Login();
+	string getName();
+	string getPassword();
 };
