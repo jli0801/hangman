@@ -7,18 +7,22 @@ using std::string;
 word::word() {
 	//default contructor 
 	this->chosenWord = " ";
-	setUsedWord(false);
-	lettersRight = new bool[1];
-	lettersRight[0] = false;
+	this->setUsedWord(false);
+	this->lettersRight = new bool[1];
+	this->lettersRight[0] = false;
 	
-	charGuessed = new char[1];
-	charGuessed[0] = ' ';
+	this->charGuessed = new char[1];
+	this->charGuessed[0] = ' ';
+
+}
+word::~word()
+{
 
 }
 word::word(string input)
 {
 	this->chosenWord = input;
-	setUsedWord(false);
+	this->setUsedWord(false);
 	this->lettersRight = new bool[input.length()];
 	for (int i = 0; i < input.length(); i++)
 	{

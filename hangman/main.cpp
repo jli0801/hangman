@@ -25,7 +25,7 @@ bool restart;
 void start_menu(string &word);
 void newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
-void init();
+void init(string&);
 
 
 int main()
@@ -42,16 +42,20 @@ int main()
 	start_menu(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
 	word usersWord = word(wordChosen);
-	cout << usersWord.getWord() << endl;
+	//cout << usersWord.getWord() << endl;
 	updateBoard(usersWord);
+
 	do{
-		
-		/*if (restart)
+
+		if (restart)
 		{
-			newWord(wordChosen);
+			//newWord(wordChosen);
+			system("cls"); //clear
+			cout << usersWord.getWord() << endl;
 			updateBoard(usersWord);
-		}*/
-		
+		}
+		cout << usersWord.getWord() << endl;
+
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
 		system("cls");
@@ -83,7 +87,7 @@ int main()
 		//ALWAYS CHECK IF THE GAME IS DONE BY THE END
 		if (usersWord.checkWholeWord())
 		{
-			printMessage("Congrations! You Won!", true, true);
+			printMessage("Congratulations! You Won!", true, true);
 			system("pause");
 			won = true;
 			//if won is true and we want to prompt user if they want to play again
@@ -95,17 +99,17 @@ int main()
 				switch (userChoice) {
 				case 1:
 					//user will play again
-					
-					init();
-					usersWord = word();
-					system("cls"); //clear
-					//restart = true;
-					newWord(wordChosen);
-					updateBoard(usersWord);
-					won = false;
-					break;
+					cout << "The reset part will be implemented in the second part." << endl;
+					exit(0);
+					break; 
+					//CURRENTLY THIS HANGMAN ONLY HANDLES ONE GAME 
+					/*init(wordChosen);
+					//system("cls"); //clear
+					restart = true;
+					break;*/
 
 				case 2:
+					//LATER ON WE CAN BRING THEM BACK TO THE START MENU
 					printMessage("Goodbye!", true, true);
 					break;
 				default:
@@ -123,12 +127,20 @@ int main()
 
 
 
-void init()
+void init(string& wordIn)
 {
 	//initialize variables 
 	won = false;
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
+	wordIn = loadRandomWord("wordset.txt");
+
+	usersWord.~word();
+
+	word usersWord = word(wordChosen);
+
+	cout << wordIn << endl;
+
 	for (int i = 0; i < sizeof(guesses); i++)
 	{
 		guesses[i] = NULL;
@@ -142,17 +154,15 @@ void init()
 
 void newWord(string& wordIn)
 {
-	int input;
-	ifstream myFile;
 	wordIn = loadRandomWord("wordset.txt");
-	word usersWord = word(wordIn);
+	//word usersWord = word(wordIn);
 	system("cls");
 }
 
 void start_menu(string &word) {
 	int input;
-	ifstream myFile;
-
+	string userName;
+	string password;
 	printMessage("Hangman Game", true, false);
 	printMessage("ESE224 Fall 2019", true, false);
 	printMessage("Group Members:", true, false);
@@ -160,29 +170,60 @@ void start_menu(string &word) {
 	printMessage("Dorothy Lee", false, false);
 	printMessage("Lily Li", false, false);
 	printMessage("Darren Li", false, true);
-	printMessage("Select Difficulty:", false, false);
-	printMessage("1. Easy", false, false);
-	printMessage("2. Medium", false, false);
-	printMessage("3. Hard", false, true);
+	printMessage("1. Start a new game", false, false);
+	printMessage("2. Sign in as User", false, false);
+	printMessage("3. Sign in as Admin", false, true);
 	cout << "Please select a number to continue, enter 'q' to quit: ";
 	cin >> input;
 	switch (input) {
 	case 1:
-		//input file name here to be used for easy
-		word = loadRandomWord("wordset.txt");
-		
-		system("cls");
+		printMessage("Hangman Game", true, false);
+		printMessage("ESE224 Fall 2019", true, false);
+		printMessage("Group Members:", true, false);
+		printMessage("Jessica Li", false, false);
+		printMessage("Dorothy Lee", false, false);
+		printMessage("Lily Li", false, false);
+		printMessage("Darren Li", false, true);
+		printMessage("Select Difficulty:", false, false);
+		printMessage("1. Easy", false, false);
+		printMessage("2. Medium", false, false);
+		printMessage("3. Hard", false, true);
+		cout << "Please select a number to continue, enter 'q' to quit: ";
+		int inputGame;
+		cin >> inputGame;
+		switch (inputGame)
+		{
+			case 1 : 
+				cin >> input;
+				word = loadRandomWord("wordset.txt");
+				system("cls");
+			case 2 :
+				//MEDIUM
+			case 3 :
+				//HARD
+			case 'Q':
+			case 'q':
+				cout << "\n";
+				printMessage("Goodbye!", true, true);
+				exit(0);	//exit the program 
+				break;
+			default:
+				exit(0);
+				break;
+		}
 		break;
 	case 2:
-		//MEDIUM
-		cout << "This section of the game has not been implemented. " << endl; 
+		//LOG IN AS USER 
+		
+		cout << "Please enter your user name. " << endl;
+		cin >> userName;
+		cout << "Please enter your password. " << endl;
+		cin >> password;
 		exit(0);
 		break;
 	case 3: 
-		//HARD
-		cout << "This section of the game has not been implemented. " << endl;
+		//LOG IN AS ADMIN 
 		exit(0);
-
 		break;
 	case 'Q':
 	case 'q':
