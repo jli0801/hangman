@@ -104,7 +104,7 @@ void User::loadFile()
 				string name, password, win, loss, pct, streak, last;
 				for (int i = 0; i < row.length() - 1; i++)
 				{
-					if (row.at(i) == ' ' && row.at(i + 1) != ' ')
+					if ((row.at(i) == ' ') && (row.at(i + 1) != ' '))
 					{
 						index++;
 					}
