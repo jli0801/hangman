@@ -52,6 +52,16 @@ string User::getLastPlay()
 	return User::lastPlay;
 }
 
+int User::getStreak()
+{
+	return User::winStreak;
+}
+
+void User::setStreak(int s)
+{
+	User::winStreak = s;
+}
+
 
 list<User> User::getAllUsers()
 {
@@ -152,5 +162,11 @@ void User::updateFile()
 	//so they're updating u's 
 	//change the LIST first 
 	//then rewrite over the exsisting txt file with the list's info
-
+	ofstream outputFile; 
+	outputFile.open("UserAccountHistory.txt");
+	std::list<User> ::iterator it; 
+	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
+	{
+		outputFile << it->getName() << " " << it->getPassword() << "  " << to_string(it->getWins()) << "  " << to_string(it->getLoses()) << "      " << to_string(it->getWinPct()) << "  " << to_string(it->getStreak()) << "         " << it->getLastPlay() << endl;
+	}
 }
