@@ -78,6 +78,9 @@ void User::addUser(User &newU)
 	User::allUsers.push_back(newU);
 }
 
+
+//GETTING RID OF THIS FUNCTION B/C IT GETS FUFILLED BY UPDATE FILE 
+/*
 void User::writeHistoryToFile()
 {
 	//rewrite to the same file name to override it 
@@ -86,7 +89,14 @@ void User::writeHistoryToFile()
 	//read the entire file 
 	//BUT FOR THE USER (if, else) input the new info 
 	//call updateFile() from utilities 
-}
+	ofstream outputFile;
+	outputFile.open("UserAccountHistory.txt");
+	std::list<User> ::iterator it;
+	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
+	{
+		outputFile << it->getName() << " " << it->getPassword() << "  " << to_string(it->getWins()) << "  " << to_string(it->getLoses()) << "      " << to_string(it->getWinPct()) << "  " << to_string(it->getStreak()) << "         " << it->getLastPlay() << endl;
+	}
+}*/
 
 void User::printHistory()
 {
