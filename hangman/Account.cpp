@@ -8,7 +8,8 @@ Account::Account()
 
 Account::Account(string n, string p) : name(n), password(p)
 {
-
+	Account::name = n;
+	Account::password = p;
 }
 
 bool Account::Login() {
@@ -31,7 +32,6 @@ bool Account::Login() {
 		file.close();
 	}
 	return false;
-	
 }
 
 string Account::getName() {
