@@ -1,10 +1,13 @@
 using namespace std;
 #include"Account.h"
+#include<vector>
 
 class Admin : public Account
 {
 private:
-
+	void sortVector(vector<string>& v);
+	void importVector(string path, vector<string>& v);
+	void exportVector(string path, vector<string>& v);
 public:
 	Admin();
 	Admin(string n, string p);
@@ -12,5 +15,5 @@ public:
 	void sort();
 	void add(string word);
 	void delete_word(string word);
-	void sortVector(vector<string> & v);
+
 };
