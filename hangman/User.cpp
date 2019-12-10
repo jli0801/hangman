@@ -8,17 +8,16 @@ User::User() : Account()
 	winPct = 0;
 	winStreak = 0;
 	lastPlay = "";
-	prevWin = false;
 }
 
-User::User(string n, string p, int w, int l, int wp, int ws, string lp, bool pw) : Account(n, p)
+User::User(string n, string p, int w, int l, int wp, int ws, string lp) : Account(n, p)
 {
 	wins = w;
 	loses = l;
 	winPct = wp;
 	winStreak = ws;
 	lastPlay = lp;
-	prevWin = pw;
+	
 }
 
 int User::getWins()
@@ -30,6 +29,8 @@ void User::setWins(int w)
 {
 	wins = w;
 }
+
+
 
 int User::getLoses()
 {
@@ -51,14 +52,20 @@ string User::getLastPlay()
 	return User::lastPlay;
 }
 
-bool User::getPrevWin()
+
+list<User> User::getAllUsers()
 {
-	return User::prevWin;
+	return User::allUsers;
 }
 
-void User::setPrevWin(bool p)
+void User::setAllUsers(list<User> u)
 {
-	prevWin = p;
+	User::allUsers = u;
+}
+
+void User::addUser(User &newU)
+{
+	User::allUsers.push_back(newU);
 }
 
 void User::writeHistoryToFile()
@@ -77,15 +84,66 @@ void User::printHistory()
 	cout << "Loses: " << this->getLoses() << endl;
 	cout << "Winning Percentage: " << this->getWinPct() << "%" << endl;
 	cout << "Last Play: " << this->getLastPlay() << endl;
-	cout << "Previous Win? " << this->getPrevWin() << endl;
 }
 void User::loadFile()
 {
 	//create a new user for each line 
 	ifstream file("UserAccountHistory.txt");
+	string row;
 	if (file.is_open())
 	{
+		while (std::getline(file, row))
+		{
+			//now each row is stored in row 
+			//always ignore the first line
+			if (!(row.compare("Name Password Wins Losses WinPct WinStreak LastPlay")))
+			{
+				//so if it's valuable data 
+				//parse the data 
+				int index = 0;
+				string name, password, win, loss, pct, streak, last;
+				for (int i = 0; i < row.length() - 1; i++)
+				{
+					if (row.at(i) == ' ' && row.at(i + 1) != ' ')
+					{
+						index++;
+					}
+					else if (index == 1)
+					{
+						name += row.at(i);
+					}
+					else if (index == 2)
+					{
+						password += row.at(i);
+					}
+					else if (index == 3)
+					{
+						win += row.at(i);
+					}
+					else if (index == 4)
+					{
+						loss += row.at(i);
+					}
+					else if (index == 5)
+					{
+						pct += row.at(i);
+					}
+					else if (index == 6)
+					{
+						streak += row.at(i);
+					}
+					else
+					{
+						last += row.at(i);
+					}
+				}
+				User *addMember = new User(name, password, stoi(win), stoi(loss), stoi(pct), stoi(streak), last);
+				this->addUser(*addMember);
+			}
+		}
 		//able to open 
+		//scan each row and each row is separated by name, password, win, losses, winpct, winstreak, last play
+
 	}
 
 }
