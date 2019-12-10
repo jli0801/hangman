@@ -33,7 +33,7 @@ public:
 	void addUser(User &newU);
 
 	//void playGame();
-	void writeHistoryToFile();
+	//void writeHistoryToFile();
 	void printHistory();
 	void loadFile();
 	void updateFile();

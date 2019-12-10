@@ -18,15 +18,14 @@ char misses[6]; //so it can handle up to 6 misses
 int tries;
 string wordChosen;
 word usersWord; //default construtor is called
-bool won; 
-bool restart;
+bool won;
 
 //features
 void start_menu(string &word);
-void newWord(string& word);
+string newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
 void init(string&);
-
+void restart();
 
 int main()
 {
@@ -37,7 +36,7 @@ int main()
 	guessPointer = 0; //max is 26
 
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
-	restart = false;
+
 
 	start_menu(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
@@ -47,19 +46,11 @@ int main()
 
 	do{
 
-		if (restart)
-		{
-			//newWord(wordChosen);
-			system("cls"); //clear
-			cout << usersWord.getWord() << endl;
-			updateBoard(usersWord);
-		}
-		cout << usersWord.getWord() << endl;
+		cout << usersWord.getWord() << endl;//TAKE THIS OUT IN THE END PLS
 
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
 		system("cls");
-		//cout << usersWord.getWord();
 		if (usersWord.setValues(inputUser) && (check_guesses(inputUser, guesses)))
 		{
 			//they found a letter or word from the chosen word
@@ -99,18 +90,16 @@ int main()
 				switch (userChoice) {
 				case 1:
 					//user will play again
-					cout << "The reset part will be implemented in the second part." << endl;
-					exit(0);
-					break; 
-					//CURRENTLY THIS HANGMAN ONLY HANDLES ONE GAME 
-					/*init(wordChosen);
-					//system("cls"); //clear
-					restart = true;
-					break;*/
+					restart();
+					system("cls");
 
+					break;
 				case 2:
 					//LATER ON WE CAN BRING THEM BACK TO THE START MENU
 					printMessage("Goodbye!", true, true);
+					system("pause");
+					restart();
+					start_menu(wordChosen);
 					break;
 				default:
 					cerr << "Error, please try again" << endl;
@@ -133,11 +122,11 @@ void init(string& wordIn)
 	won = false;
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
-	wordIn = loadRandomWord("wordset.txt");
+	
 
 	usersWord.~word();
 
-	word usersWord = word(wordChosen);
+	word usersWord = word(wordIn);
 
 	cout << wordIn << endl;
 
@@ -152,11 +141,10 @@ void init(string& wordIn)
 	//end of initialize 
 }
 
-void newWord(string& wordIn)
+string newWord(string& wordIn)
 {
 	wordIn = loadRandomWord("wordset.txt");
-	//word usersWord = word(wordIn);
-	system("cls");
+	return wordIn;
 }
 
 void start_menu(string &word) {
@@ -177,14 +165,8 @@ void start_menu(string &word) {
 	cin >> input;
 	switch (input) {
 	case 1:
-		printMessage("Hangman Game", true, false);
-		printMessage("ESE224 Fall 2019", true, false);
-		printMessage("Group Members:", true, false);
-		printMessage("Jessica Li", false, false);
-		printMessage("Dorothy Lee", false, false);
-		printMessage("Lily Li", false, false);
-		printMessage("Darren Li", false, true);
-		printMessage("Select Difficulty:", false, false);
+		system("cls");
+		printMessage("Select Difficulty:", true, false);
 		printMessage("1. Easy", false, false);
 		printMessage("2. Medium", false, false);
 		printMessage("3. Hard", false, true);
@@ -193,10 +175,11 @@ void start_menu(string &word) {
 		cin >> inputGame;
 		switch (inputGame)
 		{
-			case 1 : 
-				cin >> input;
-				word = loadRandomWord("wordset.txt");
+			case 1 :
+				system("pause");
+				wordChosen = loadRandomWord("wordset.txt");
 				system("cls");
+				break;
 			case 2 :
 				//MEDIUM
 			case 3 :
@@ -334,5 +317,13 @@ void updateBoard(word user) //changed the function so that it can handle updates
 		exit(0);
 	}
 
+}
+
+void restart() {
+	system("pause");
+	wordChosen = newWord(wordChosen);
+	init(wordChosen);
+	word usersWord = word(wordChosen);
+	updateBoard(usersWord);
 }
 
