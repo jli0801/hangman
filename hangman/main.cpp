@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 #include "utilities.h"
+#include "Account.h"
+#include "Admin.h"
+#include "User.h"
 #include "word.h"
 
 using namespace std;
@@ -165,6 +168,7 @@ void start_menu(string &word) {
 	cin >> input;
 	switch (input) {
 	case 1:
+	{
 		system("cls");
 		printMessage("Select Difficulty:", true, false);
 		printMessage("1. Easy", false, false);
@@ -175,38 +179,69 @@ void start_menu(string &word) {
 		cin >> inputGame;
 		switch (inputGame)
 		{
-			case 1 :
-				system("pause");
-				wordChosen = loadRandomWord("wordset.txt");
-				system("cls");
-				break;
-			case 2 :
-				//MEDIUM
-			case 3 :
-				//HARD
-			case 'Q':
-			case 'q':
-				cout << "\n";
-				printMessage("Goodbye!", true, true);
-				exit(0);	//exit the program 
-				break;
-			default:
-				exit(0);
-				break;
+		case 1:
+			system("pause");
+			wordChosen = loadRandomWord("wordset.txt");
+			system("cls");
+			break;
+		case 2:
+			//MEDIUM
+		case 3:
+			//HARD
+		case 'Q':
+		case 'q':
+			cout << "\n";
+			printMessage("Goodbye!", true, true);
+			exit(0);	//exit the program 
+			break;
+		default:
+			exit(0);
+			break;
 		}
 		break;
+	}
 	case 2:
+	{
 		//LOG IN AS USER 
-		
+	LoginUser:
 		cout << "Please enter your user name. " << endl;
 		cin >> userName;
 		cout << "Please enter your password. " << endl;
 		cin >> password;
-		exit(0);
-		break;
+		Account user;
+		user = Account(userName, password);
+		if (user.Login())
+		{
+			cout << "You sucessfully logged in.";
+		}
+		else
+		{
+			cout << "Invalid Username/Password";
+			goto LoginUser;
+		}
+		
+	}
+	break;
 	case 3: 
 		//LOG IN AS ADMIN 
-		exit(0);
+	{
+	LoginAdmin:
+		string userNameAd;
+		string passwordAd;
+		cout << "Please enter your user name. " << endl;
+		cin >> userNameAd;
+		cout << "Please enter your password. " << endl;
+		cin >> passwordAd;
+		if (userNameAd.compare("uwu") && passwordAd.compare("owo"))
+		{
+			cout << "You sucessfully logged in.";
+		}
+		else
+		{
+			cout << "Invalid USername/Password.";
+			goto LoginAdmin;
+		}
+	}
 		break;
 	case 'Q':
 	case 'q':
