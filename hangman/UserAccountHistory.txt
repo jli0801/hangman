@@ -1,0 +1,5 @@
+ Name Password Wins Losses WinPct WinStreak LastPlay
+ Doro sleepMuch 2   1      66.67  1         smelly
+ Jess bearBear  1   2      33.33  1         apple
+ Lily uwuOwo    3   0      100    2         rice 
+ Darr iceBear   0   1      0      -1        yellow

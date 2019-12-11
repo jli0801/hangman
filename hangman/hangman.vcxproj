@@ -139,6 +139,7 @@
     <ClInclude Include="word.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="UserAccountHistory.txt" />
     <Text Include="wordset.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
