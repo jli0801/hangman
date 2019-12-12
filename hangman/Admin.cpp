@@ -56,7 +56,7 @@ void Admin::exportVector(string path, vector<string>& v) {
 
 // returns true if the name and password is correct
 bool Admin::login() {
-	if ((getName() == "uwuADMIN") && (getPassword() == "kawaiiADMIN")) {
+	if ((getName() == "uwu") && (getPassword() == "owo")) {
 		return true;
 	}
 	return false;
@@ -74,19 +74,34 @@ void Admin::sort() {
 
 	//write back the list back to wordset.txt
 	exportVector(path, v);
+	cout << "The list has been successfully sorted." << endl;
 }
 
 //add word then sort list alphabetically
 void Admin::add(string word) {
 	vector<string> v;
 	string path = "wordset.txt";
+	bool wordExist = false;
 
 	//inport list of words into vector list
 	importVector(path, v);
 
-	//add word into the vector list
-	v.push_back(word);
+	//check if word exists
+	for (string str : v) {
+		if (path.compare(str) == 0) {
+			wordExist = true;
+		}
+	}
 
+	if (wordExist) {
+		cout << "The word " << word << " exists already." << endl;
+	}
+	else {
+		//add word into the vector list
+		v.push_back(word);
+		cout << "The word " << word << " has been added to the list." << endl;
+	}
+	
 	//write back the list back to wordset.txt
 	exportVector(path, v);
 }
@@ -96,6 +111,7 @@ void Admin::delete_word(string word) {
 	int size = 0;
 	vector<string> v;
 	string path = "wordset.txt";
+	bool wordFound = false;
 
 	//inport list of words into vector list
 	importVector(path, v);
@@ -104,6 +120,7 @@ void Admin::delete_word(string word) {
 	//delete word in vector list
 	for (int i = 0; i < size; i++) {
 		if (word.compare(v[i]) == 0) {
+			wordFound = true;
 			v.erase(v.begin() + i);
 			break;
 		}
@@ -111,6 +128,14 @@ void Admin::delete_word(string word) {
 
 	//write back the list back to wordset.txt
 	exportVector(path, v);
+
+	//notify admin of status
+	if (wordFound) {
+		cout << "The word " << word << " has been successfully deleted from the list." << endl;
+	}
+	else {
+		cout << "The word " << word << " does not exist." << endl;
+	}
 }
 
 

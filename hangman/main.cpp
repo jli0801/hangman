@@ -22,26 +22,32 @@ int tries;
 string wordChosen;
 word usersWord; //default construtor is called
 bool won;
+bool canProceed;
 
 //features
-void start_menu(string &word);
+void start_menu(string &word, bool& canProceed);
 string newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
 void init(string&);
-void restart();
+bool userAccess();
+bool adminAccess();
 
 int main()
 {
+start:
 	char inputUser;
 	//start of the initializer
 	won = false;
+	canProceed = false;
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
 
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
 
-
-	start_menu(wordChosen);
+	while (!canProceed) {
+		start_menu(wordChosen, canProceed);
+	}
+	init(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
 	word usersWord = word(wordChosen);
 	//cout << usersWord.getWord() << endl;
@@ -88,25 +94,16 @@ int main()
 			if (won) {
 				int userChoice = 0;
 				system("cls");
-				cout << "\nWould you like to play again?\n1. Yes\n2. No\nChoice: " << endl;
+				cout << "\nWould you like to return to start menu?\n1. Yes\n0. Press any other key to exit\n\nChoice: " << endl;
 				cin >> userChoice;
 				switch (userChoice) {
 				case 1:
-					//user will play again
-					restart();
 					system("cls");
+					goto start;
+					break;
 
-					break;
-				case 2:
-					//LATER ON WE CAN BRING THEM BACK TO THE START MENU
-					printMessage("Goodbye!", true, true);
-					system("pause");
-					restart();
-					start_menu(wordChosen);
-					break;
 				default:
-					cerr << "Error, please try again" << endl;
-					won = false;
+					exit(0);
 					break;
 				}
 			}
@@ -131,8 +128,6 @@ void init(string& wordIn)
 
 	word usersWord = word(wordIn);
 
-	cout << wordIn << endl;
-
 	for (int i = 0; i < sizeof(guesses); i++)
 	{
 		guesses[i] = NULL;
@@ -150,7 +145,8 @@ string newWord(string& wordIn)
 	return wordIn;
 }
 
-void start_menu(string &word) {
+void start_menu(string &word, bool &canProceed) {
+	cin.clear();
 	User populateUsers;
 	populateUsers.loadFile();
 
@@ -169,6 +165,7 @@ void start_menu(string &word) {
 	printMessage("3. Sign in as Admin", false, true);
 	cout << "Please select a number to continue, enter 'q' to quit: ";
 	cin >> input;
+
 	switch (input) {
 	case 1:
 	{
@@ -184,6 +181,7 @@ void start_menu(string &word) {
 		{
 		case 1:
 			system("pause");
+			canProceed = true;
 			wordChosen = loadRandomWord("wordset.txt");
 			system("cls");
 			break;
@@ -206,66 +204,16 @@ void start_menu(string &word) {
 	case 2:
 	{
 		//LOG IN AS USER 
-	LoginUser:
-		cout << "Please enter your user name. " << endl;
-		cin >> userName;
-		cout << "Please enter your password. " << endl;
-		cin >> password;
-		
-		Account user;
-		user = Account(userName, password);
-		if (user.Login())
-		{
-			cout << "You sucessfully logged in.";
-			
-			string title = "Hello " + user.getName(); 
-			//have menu print again. Can choose to see stats or play game 
-			system("cls");
-			printMessage(title, true, false);
-			printMessage("1. Play a Game", false, false);
-			printMessage("2. Check your history", false, false);
-			int userMenu;
-			cin >> userMenu;
-			switch (userMenu)
-			{
-			case 1:
-				//may not work 
-				main();
-			case 2:
-				
-			default:
-				exit(0);
-				break;
-			}
+		canProceed = userAccess();
+		if (canProceed) {
+			wordChosen = loadRandomWord("wordset.txt");
 		}
-		else
-		{
-			cout << "Invalid Username/Password";
-			goto LoginUser;
-		}
-		
-		
 	}
 	break;
 	case 3: 
-		//LOG IN AS ADMIN 
 	{
-	LoginAdmin:
-		string userNameAd;
-		string passwordAd;
-		cout << "Please enter your user name. " << endl;
-		cin >> userNameAd;
-		cout << "Please enter your password. " << endl;
-		cin >> passwordAd;
-		if (userNameAd.compare("uwu") && passwordAd.compare("owo"))
-		{
-			cout << "You sucessfully logged in.";
-		}
-		else
-		{
-			cout << "Invalid Username/Password.";
-			goto LoginAdmin;
-		}
+		//LOG IN AS ADMIN 
+		canProceed = adminAccess();
 	}
 		break;
 	case 'Q':
@@ -379,11 +327,118 @@ void updateBoard(word user) //changed the function so that it can handle updates
 
 }
 
-void restart() {
-	system("pause");
-	wordChosen = newWord(wordChosen);
-	init(wordChosen);
-	word usersWord = word(wordChosen);
-	updateBoard(usersWord);
+bool userAccess() {
+	int userMenu;
+	string userName, password;
+	bool exit = false;
+	Account user;
+
+	cout << "Please enter your user name: " << endl;
+	cin >> userName;
+	cout << "Please enter your password: " << endl;
+	cin >> password;
+
+	user = Account(userName, password);
+	if (user.Login())
+	{
+		cout << "You sucessfully logged in! \n";
+		system("pause");
+		string title = "Hello " + user.getName();
+		//have menu print again. Can choose to see stats or play game 
+		
+			system("cls");
+			printMessage(title, true, true);
+			printMessage("1. Play a Game", false, false);
+			printMessage("2. Check your history", false, true);
+
+		while (!exit) {
+			cout << "\nPlease select a number to continue, enter any other key to quit: ";
+			cin >> userMenu;
+			switch (userMenu)
+			{
+			case 1:
+				//start menu can proceed with loaded word
+				system("cls");
+				return true;
+				break;
+			case 2:
+				//print history
+				cout << "To print out histroy\n\n";
+				break;
+			default:
+				//exit(0);
+				exit = true;
+				break;
+			}
+		}
+		
+	}
+	else
+	{
+		cout << "Invalid Username/Password\n";
+		system("pause");
+
+	}
+
+	system("cls");
+	return false;
 }
 
+bool adminAccess() {
+	string userNameAd = "",passwordAd ="", word = "";
+	int adminMenu = 0;
+	bool exit = false;
+	Admin newAdmin;
+
+	cout << "Please enter your user name: " << endl;
+	cin >> userNameAd;
+	cout << "Please enter your password: " << endl;
+	cin >> passwordAd;
+
+	newAdmin = Admin(userNameAd, passwordAd);
+	
+	if (newAdmin.login())
+	{
+		cout << "\nYou sucessfully logged in.\n";
+		system("pause");
+		//have menu print again. Can choose to manage list
+
+		system("cls");
+		printMessage("Manage Your Word List", true, true);
+		printMessage("1. Sort the list alphabetically", false, false);
+		printMessage("2. Add a word to the list", false, false);
+		printMessage("3. Delete a word from the list", false, true);
+
+		while (!exit) {
+			cout << "\nPlease select a number to continue, enter any other key to quit: ";
+			cin >> adminMenu;
+			switch (adminMenu)
+			{
+			case 1:
+				newAdmin.sort();
+				break;
+			case 2:
+				cout << "\nPlease enter a new word to be added: ";
+				cin >> word;
+				newAdmin.add(word);
+				break;
+			case 3:
+				cout << "\nPlease enter a word to be deleted: ";
+				cin >> word;
+				newAdmin.delete_word(word);
+				break;
+			default:
+				//exit(0);
+				exit = true;
+				break;
+			}
+		}
+	}
+	else
+	{
+		cout << "Invalid Username/Password\n";
+		system("pause");
+	}
+	system("cls");
+	return false;
+}

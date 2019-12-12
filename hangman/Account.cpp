@@ -20,7 +20,7 @@ bool Account::Login() {
 	{
 		while (!file.eof()) {
 			file >> word;
-				if ((i/7 == 0)&&(word.compare(name)==0)) {
+				if (word.compare(name)==0) {
 					//username is identified in file
 					file >> word;
 					//checks next string to check password
