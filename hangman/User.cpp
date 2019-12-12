@@ -1,6 +1,5 @@
 #include "User.h"
-#include <iomanip>
-#include <stdio.h>
+
 User::User() : Account()
 {
 	wins = 0;

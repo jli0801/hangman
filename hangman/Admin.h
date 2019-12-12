@@ -1,8 +1,12 @@
+#pragma once 
 using namespace std;
 #include"Account.h"
 #include<vector>
+#include <iostream>
+#include <fstream>
+#include <string>
 
-class Admin : public Account
+class Admin : public Account 
 {
 private:
 	void sortVector(vector<string>& v);

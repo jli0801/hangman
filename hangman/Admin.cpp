@@ -1,7 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <string>
 #include "Admin.h"
 
 //default contructor

@@ -208,6 +208,7 @@ void start_menu(string &word) {
 		cin >> userName;
 		cout << "Please enter your password. " << endl;
 		cin >> password;
+		/*
 		Account user;
 		user = Account(userName, password);
 		if (user.Login())
@@ -219,6 +220,7 @@ void start_menu(string &word) {
 			cout << "Invalid Username/Password";
 			goto LoginUser;
 		}
+		*/
 		
 	}
 	break;

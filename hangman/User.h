@@ -1,8 +1,11 @@
+
+#pragma once 
 using namespace std;
 #include"Account.h"
 #include <iomanip>
 #include <iostream>
 #include <list> 
+#include <stdio.h>
 
 class User : public Account
 {
@@ -38,3 +41,4 @@ public:
 	void loadFile();
 	void updateFile();
 };
+
