@@ -208,19 +208,25 @@ void start_menu(string &word) {
 		cin >> userName;
 		cout << "Please enter your password. " << endl;
 		cin >> password;
-		/*
+		
 		Account user;
 		user = Account(userName, password);
 		if (user.Login())
 		{
 			cout << "You sucessfully logged in.";
+			string title = "Hello " + user.getName(); 
+			//have menu print again. Can choose to see stats or play game 
+			system("cls");
+			printMessage(title, true, false);
+			printMessage("1. Play a Game", false, false);
+			printMessage("2. Check your history", false, false);
 		}
 		else
 		{
 			cout << "Invalid Username/Password";
 			goto LoginUser;
 		}
-		*/
+		
 		
 	}
 	break;
