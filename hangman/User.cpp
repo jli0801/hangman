@@ -46,6 +46,11 @@ double User::getWinPct()
 	return User::winPct;
 }
 
+void User::setWinPct(double p)
+{
+	User::winPct = p;
+}
+
 string User::getLastPlay()
 {
 	return User::lastPlay;
@@ -59,6 +64,27 @@ int User::getStreak()
 void User::setStreak(int s)
 {
 	User::winStreak = s;
+}
+
+User User::populateUser()
+{
+	//User::loadFile();
+	//this is called in init()
+	//so now the list is populated  
+	std::list<User> ::iterator it;
+	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
+	{
+		if (it->getName().compare(this->getName()) && it->getPassword().compare(this->getPassword()))
+		{
+			//if the creditentials are the same 
+			this->setWins(it->getWins());
+			this->setLoses(it->getLoses());
+			this->setStreak(it->getStreak());
+			this->setWins(it->getWins());
+			this->setWinPct(it->getWinPct());
+		}
+	}
+	return *this;
 }
 
 

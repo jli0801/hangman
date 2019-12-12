@@ -151,6 +151,9 @@ string newWord(string& wordIn)
 }
 
 void start_menu(string &word) {
+	User populateUsers;
+	populateUsers.loadFile();
+
 	int input;
 	string userName;
 	string password;
@@ -214,12 +217,26 @@ void start_menu(string &word) {
 		if (user.Login())
 		{
 			cout << "You sucessfully logged in.";
+			
 			string title = "Hello " + user.getName(); 
 			//have menu print again. Can choose to see stats or play game 
 			system("cls");
 			printMessage(title, true, false);
 			printMessage("1. Play a Game", false, false);
 			printMessage("2. Check your history", false, false);
+			int userMenu;
+			cin >> userMenu;
+			switch (userMenu)
+			{
+			case 1:
+				//may not work 
+				main();
+			case 2:
+				
+			default:
+				exit(0);
+				break;
+			}
 		}
 		else
 		{
@@ -246,7 +263,7 @@ void start_menu(string &word) {
 		}
 		else
 		{
-			cout << "Invalid USername/Password.";
+			cout << "Invalid Username/Password.";
 			goto LoginAdmin;
 		}
 	}
