@@ -66,7 +66,7 @@ void User::setStreak(int s)
 	User::winStreak = s;
 }
 
-User User::populateUser()
+void User::populateUser()
 {
 	//User::loadFile();
 	//this is called in init()
@@ -84,7 +84,6 @@ User User::populateUser()
 			this->setWinPct(it->getWinPct());
 		}
 	}
-	return *this;
 }
 
 
@@ -125,10 +124,10 @@ void User::writeHistoryToFile()
 
 void User::printHistory()
 {
-	cout << "Wins: " << this->getWins() << endl;
-	cout << "Loses: " << this->getLoses() << endl;
-	cout << "Winning Percentage: " << this->getWinPct() << "%" << endl;
-	cout << "Last Play: " << this->getLastPlay() << endl;
+	cout << "Wins: " << this->getWins() << " ";
+	cout << "Loses: " << this->getLoses() << " ";
+	cout << "Winning Percentage: " << this->getWinPct() << "%" << " ";
+	cout << "Last Play: " << this->getLastPlay() << " " ;
 }
 void User::loadFile()
 {
@@ -149,11 +148,11 @@ void User::loadFile()
 				string name, password, win, loss, pct, streak, last;
 				for (int i = 0; i < row.length() - 1; i++)
 				{
-					if ((row.at(i) == ' ') && (row.at(i+1) != ' '))
+					if ((row.at(i) == ' ') && (row.at(i+1) != ' ') || (row.at(i) == ' ') && (row.at(i + 1) == ' ') || (row.at(i) != ' ') && (row.at(i + 1) != ' '))
 					{
 						index++;
 					}
-					else if (index == 1)
+					if (index == 1)
 					{
 						name += row.at(i);
 					}
@@ -182,8 +181,8 @@ void User::loadFile()
 						last += row.at(i);
 					}
 				}
-				User *addMember = new User(name, password, stoi(win), stoi(loss), stoi(pct), stoi(streak), last);
-				this->addUser(*addMember);
+				User addMember = User(name, password, stoi(win), stoi(loss), stoi(pct), stoi(streak), last);
+				this->addUser(addMember);
 			}
 		}
 		//able to open 
@@ -199,9 +198,19 @@ void User::updateFile()
 	//then rewrite over the exsisting txt file with the list's info
 	ofstream outputFile; 
 	outputFile.open("UserAccountHistory.txt");
+	outputFile << " Name Password Wins Losses WinPct WinStreak LastPlay" << endl;
 	std::list<User> ::iterator it; 
 	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
 	{
 		outputFile << it->getName() << " " << it->getPassword() << "  " << to_string(it->getWins()) << "  " << to_string(it->getLoses()) << "      " << to_string(it->getWinPct()) << "  " << to_string(it->getStreak()) << "         " << it->getLastPlay() << endl;
+	}
+}
+
+void User::printUser()
+{
+	std::list<User> ::iterator it;
+	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
+	{
+		cout << it->getName() << " " << it->getPassword() << "  " << to_string(it->getWins()) << "  " << to_string(it->getLoses()) << "      " << to_string(it->getWinPct()) << "  " << to_string(it->getStreak()) << "         " << it->getLastPlay() << endl;
 	}
 }

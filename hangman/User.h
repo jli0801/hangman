@@ -30,7 +30,7 @@ public:
 	string getLastPlay();
 	int getStreak();
 	void setStreak(int s);
-	User populateUser();
+	void populateUser();
 
 	list<User> getAllUsers();
 	void setAllUsers(list<User> u);
@@ -41,5 +41,9 @@ public:
 	void printHistory();
 	void loadFile();
 	void updateFile();
+
+
+	/*TESTER FUNCTION*/
+	void printUser();
 };
 

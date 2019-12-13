@@ -34,6 +34,8 @@ bool Account::Login() {
 	return false;
 }
 
+
+
 string Account::getName() {
 	return Account::name;
 }

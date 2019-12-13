@@ -136,6 +136,8 @@ void init(string& wordIn)
 	{
 		misses[j] = NULL;
 	}
+	
+
 	//end of initialize 
 }
 
@@ -148,9 +150,12 @@ string newWord(string& wordIn)
 void start_menu(string &word, bool &canProceed) {
 	string inStr = "";
 	int inputGame = 0;
+	
 	User populateUsers;
 	populateUsers.loadFile();
 
+	//populateUsers.printUser();
+	
 	int input;
 	string userName;
 	string password;
@@ -325,25 +330,29 @@ bool userAccess() {
 	int userMenu;
 	string userName, password;
 	bool exit = false;
-	Account user;
-
+	Account userAcc;
+	User userPlaceHolder;
 	cout << "Please enter your user name: " << endl;
 	cin >> userName;
 	cout << "Please enter your password: " << endl;
 	cin >> password;
 
-	user = Account(userName, password);
-	if (user.Login())
+	userAcc = Account(userName, password);
+	userPlaceHolder = User(userName, password, 0, 0, 0, 0, "");
+	if (userAcc.Login())
 	{
 		cout << "You sucessfully logged in! \n";
+		userPlaceHolder.populateUser();
+		
 		system("pause");
-		string title = "Hello " + user.getName();
+		string title = "Hello " + userAcc.getName();
 		//have menu print again. Can choose to see stats or play game 
 		
 			system("cls");
 			printMessage(title, true, true);
 			printMessage("1. Play a Game", false, false);
 			printMessage("2. Check your history", false, true);
+			userPlaceHolder.printUser();
 
 		while (!exit) {
 			cout << "\nPlease select a number to continue, enter any other key to quit: ";
@@ -357,7 +366,7 @@ bool userAccess() {
 				break;
 			case 2:
 				//print history
-				cout << "To print out histroy\n\n";
+				userPlaceHolder.printHistory();
 				break;
 			default:
 				//exit(0);
@@ -390,7 +399,6 @@ bool adminAccess() {
 	cin >> passwordAd;
 
 	newAdmin = Admin(userNameAd, passwordAd);
-	
 	if (newAdmin.login())
 	{
 		cout << "\nYou sucessfully logged in.\n";
