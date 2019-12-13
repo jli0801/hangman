@@ -88,7 +88,7 @@ void Admin::add(string word) {
 
 	//check if word exists
 	for (string str : v) {
-		if (path.compare(str) == 0) {
+		if (word.compare(str) == 0) {
 			wordExist = true;
 		}
 	}

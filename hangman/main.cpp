@@ -146,7 +146,8 @@ string newWord(string& wordIn)
 }
 
 void start_menu(string &word, bool &canProceed) {
-	cin.clear();
+	string inStr = "";
+	int inputGame = 0;
 	User populateUsers;
 	populateUsers.loadFile();
 
@@ -165,7 +166,6 @@ void start_menu(string &word, bool &canProceed) {
 	printMessage("3. Sign in as Admin", false, true);
 	cout << "Please select a number to continue, enter 'q' to quit: ";
 	cin >> input;
-
 	switch (input) {
 	case 1:
 	{
@@ -175,7 +175,6 @@ void start_menu(string &word, bool &canProceed) {
 		printMessage("2. Medium", false, false);
 		printMessage("3. Hard", false, true);
 		cout << "Please select a number to continue, enter 'q' to quit: ";
-		int inputGame;
 		cin >> inputGame;
 		switch (inputGame)
 		{
@@ -189,12 +188,6 @@ void start_menu(string &word, bool &canProceed) {
 			//MEDIUM
 		case 3:
 			//HARD
-		case 'Q':
-		case 'q':
-			cout << "\n";
-			printMessage("Goodbye!", true, true);
-			exit(0);	//exit the program 
-			break;
 		default:
 			exit(0);
 			break;
@@ -215,7 +208,7 @@ void start_menu(string &word, bool &canProceed) {
 		//LOG IN AS ADMIN 
 		canProceed = adminAccess();
 	}
-		break;
+	break;
 	case 'Q':
 	case 'q':
 		cout << "\n";
@@ -223,6 +216,7 @@ void start_menu(string &word, bool &canProceed) {
 		exit(0);	//exit the program 
 		break;
 	default:
+		//cout << " Invalid in start menu\n";
 		exit(0);
 		break;
 	}
@@ -429,7 +423,8 @@ bool adminAccess() {
 				break;
 			default:
 				//exit(0);
-				exit = true;
+				system("cls");
+				return false;
 				break;
 			}
 		}

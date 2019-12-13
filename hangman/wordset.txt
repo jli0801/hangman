@@ -45,6 +45,4 @@ terrific
 terrific
 thoughtful
 toothbrush
-unknown
-wriggle
-wriggle
+newWord
