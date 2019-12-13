@@ -29,7 +29,7 @@ void start_menu(string &word, bool& canProceed);
 string newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
 void init(string&);
-bool userAccess();
+bool userAccess(User populateWord);
 bool adminAccess();
 
 int main()
@@ -202,7 +202,7 @@ void start_menu(string &word, bool &canProceed) {
 	case 2:
 	{
 		//LOG IN AS USER 
-		canProceed = userAccess();
+		canProceed = userAccess(populateUsers);
 		if (canProceed) {
 			wordChosen = loadRandomWord("wordset.txt");
 		}
@@ -326,12 +326,12 @@ void updateBoard(word user) //changed the function so that it can handle updates
 
 }
 
-bool userAccess() {
+bool userAccess(User populateUsers) {
 	int userMenu;
 	string userName, password;
 	bool exit = false;
 	Account userAcc;
-	User userPlaceHolder;
+	//User userPlaceHolder;
 	cout << "Please enter your user name: " << endl;
 	cin >> userName;
 	cout << "Please enter your password: " << endl;
@@ -344,9 +344,15 @@ bool userAccess() {
 		cout << "You sucessfully logged in! \n";
 		//userPlaceHolder = User(userName, password, 0, 0, 0, 0, "");
 		//userPlaceHolder = User(userName, password, userPlaceHolder.getWins(), userPlaceHolder.getLoses(), userPlaceHolder.getWinPct(), userPlaceHolder.getStreak(), userPlaceHolder.getLastPlay());
-		
+		populateUsers.setName(userName);
+		populateUsers.setPassword(password);
+		populateUsers.setWins(populateUsers.getWins());
+		populateUsers.setLoses(populateUsers.getLoses());
+		populateUsers.setWinPct(populateUsers.getWinPct());
+		populateUsers.setStreak(populateUsers.getStreak());
+		populateUsers.setLastPlay(populateUsers.getLastPlay());
 		system("pause");
-		string title = "Hello " + userPlaceHolder.getName() + " Wins (Should be 2): " + to_string(userPlaceHolder.getWins());
+		string title = "Hello " + populateUsers.getName() + " Wins (Should be 2): " + to_string(populateUsers.getWins());
 		//have menu print again. Can choose to see stats or play game 
 		
 			system("cls");
@@ -366,7 +372,7 @@ bool userAccess() {
 				break;
 			case 2:
 				//print history
-				userPlaceHolder.printHistory();
+				populateUsers.printHistory();
 				break;
 			default:
 				//exit(0);

@@ -43,3 +43,13 @@ string Account::getName() {
 string Account::getPassword() {
 	return Account::password;
 }
+
+void Account::setName(string n)
+{
+	Account::name = n;
+}
+
+void Account::setPassword(string p)
+{
+	Account::password = p;
+}

@@ -22,6 +22,9 @@ private:
 public:
 	User();
 	User(string n, string p, int w, int l, int wp, int ws, string lp);
+
+
+
 	int getWins();
 	void setWins(int w);
 	int getLoses();

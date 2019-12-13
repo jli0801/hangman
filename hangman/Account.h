@@ -14,4 +14,6 @@ public:
 	bool Login();
 	string getName();
 	string getPassword();
+	void setName(string n);
+	void setPassword(string p);
 };

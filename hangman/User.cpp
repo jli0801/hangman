@@ -18,6 +18,7 @@ User::User(string n, string p, int w, int l, int wp, int ws, string lp) : Accoun
 	lastPlay = lp;
 }
 
+
 int User::getWins()
 {
 	for (int i = 0; i < this->users.size(); i++)
@@ -104,17 +105,6 @@ void User::setStreak(int s)
 }
 
 
-
-
-
-/*
-
-void User::setAllUsers(list<User> u)
-{
-	User::allUsers = u;
-}
-
-*/
 
 void User::setAllUsers(vector<User> u)
 {
