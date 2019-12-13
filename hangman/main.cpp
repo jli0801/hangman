@@ -338,12 +338,12 @@ bool userAccess() {
 	cin >> password;
 
 	userAcc = Account(userName, password);
-	userPlaceHolder = User(userName, password, 0, 0, 0, 0, "");
-	userPlaceHolder = User(userName, password, userPlaceHolder.getWins(), userPlaceHolder.getLoses(), userPlaceHolder.getWinPct(), userPlaceHolder.getStreak(), userPlaceHolder.getLastPlay());
+
 	if (userAcc.Login())
 	{
 		cout << "You sucessfully logged in! \n";
-		
+		//userPlaceHolder = User(userName, password, 0, 0, 0, 0, "");
+		//userPlaceHolder = User(userName, password, userPlaceHolder.getWins(), userPlaceHolder.getLoses(), userPlaceHolder.getWinPct(), userPlaceHolder.getStreak(), userPlaceHolder.getLastPlay());
 		
 		system("pause");
 		string title = "Hello " + userPlaceHolder.getName() + " Wins (Should be 2): " + to_string(userPlaceHolder.getWins());
