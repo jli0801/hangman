@@ -20,42 +20,82 @@ User::User(string n, string p, int w, int l, int wp, int ws, string lp) : Accoun
 
 int User::getWins()
 {
-	return User::wins;
+	for (int i = 0; i < this->users.size(); i++)
+	{
+		if (users[i].getName().compare(this->getName()) && users[i].getPassword().compare(this->getPassword()))
+		{
+			return users[i].getWins();
+			break;
+		}
+	}
 }
 
 void User::setWins(int w)
 {
-	wins = w;
+	User::wins = w;
 }
 
 int User::getLoses()
 {
-	return User::loses;
+	for (int i = 0; i < this->users.size(); i++)
+	{
+		if (users[i].getName().compare(this->getName()) && users[i].getPassword().compare(this->getPassword()))
+		{
+			return users[i].getLoses();
+			break;
+		}
+	}
 }
 
 void User::setLoses(int l)
 {
-	loses = l;
+	User::loses = l;
 }
 
 double User::getWinPct()
 {
-	return User::winPct;
+	for (int i = 0; i < this->users.size(); i++)
+	{
+		if (users[i].getName().compare(this->getName()) && users[i].getPassword().compare(this->getPassword()))
+		{
+			return users[i].getWinPct();
+			break;
+		}
+	}
 }
 
-void User::setWinPct(double p)
+void User::setWinPct(double wp)
 {
-	User::winPct = p;
+	User::winPct = wp;
 }
 
 string User::getLastPlay()
 {
-	return User::lastPlay;
+	for (int i = 0; i < this->users.size(); i++)
+	{
+		if (users[i].getName().compare(this->getName()) && users[i].getPassword().compare(this->getPassword()))
+		{
+			return users[i].getLastPlay();
+			break;
+		}
+	}
+}
+
+void User::setLastPlay(string lp)
+{
+	User::lastPlay = lp;
 }
 
 int User::getStreak()
 {
-	return User::winStreak;
+	for (int i = 0; i < this->users.size(); i++)
+	{
+		if (users[i].getName().compare(this->getName()) && users[i].getPassword().compare(this->getPassword()))
+		{
+			return users[i].getStreak();
+			break;
+		}
+	}
 }
 
 void User::setStreak(int s)
@@ -63,24 +103,7 @@ void User::setStreak(int s)
 	User::winStreak = s;
 }
 
-void User::populateUser()
-{
-	//User::loadFile();
-	//this is called in init()
-	//so now the list is populated  
-	for (int i = 0; i < this->users.size(); i++)
-	{
-		if (users[i].getName().compare(this->getName()) && users[i].getPassword().compare(this->getPassword()))
-		{
-			//if the credentials are the same 
-			this->setWins(users[i].getWins());
-			this->setLoses(users[i].getLoses());
-			this->setStreak(users[i].getStreak());
-			this->setWins(users[i].getWins());
-			this->setWinPct(users[i].getWinPct());
-		}
-	}
-}
+
 
 
 

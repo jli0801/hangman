@@ -339,20 +339,20 @@ bool userAccess() {
 
 	userAcc = Account(userName, password);
 	userPlaceHolder = User(userName, password, 0, 0, 0, 0, "");
+	userPlaceHolder = User(userName, password, userPlaceHolder.getWins(), userPlaceHolder.getLoses(), userPlaceHolder.getWinPct(), userPlaceHolder.getStreak(), userPlaceHolder.getLastPlay());
 	if (userAcc.Login())
 	{
 		cout << "You sucessfully logged in! \n";
-		userPlaceHolder.populateUser();
+		
 		
 		system("pause");
-		string title = "Hello " + userAcc.getName();
+		string title = "Hello " + userPlaceHolder.getName() + " Wins (Should be 2): " + to_string(userPlaceHolder.getWins());
 		//have menu print again. Can choose to see stats or play game 
 		
 			system("cls");
 			printMessage(title, true, true);
 			printMessage("1. Play a Game", false, false);
 			printMessage("2. Check your history", false, true);
-			userPlaceHolder.printUser();
 
 		while (!exit) {
 			cout << "\nPlease select a number to continue, enter any other key to quit: ";
