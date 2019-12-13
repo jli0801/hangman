@@ -23,13 +23,15 @@ string wordChosen;
 word usersWord; //default construtor is called
 bool won;
 bool canProceed;
+User populateUsers = User("", "", 0, 0, 0, 0, "");
+//MAKE A GLOBAL USER THAT WE CAN OVERRIDE WHEN THE USER LOGS IN 
 
 //features
 void start_menu(string &word, bool& canProceed);
 string newWord(string& word);
 void updateBoard(word user); //changing game_start to func as a update board 
 void init(string&);
-bool userAccess(User populateWord);
+bool userAccess();
 bool adminAccess();
 
 int main()
@@ -151,7 +153,7 @@ void start_menu(string &word, bool &canProceed) {
 	string inStr = "";
 	int inputGame = 0;
 	
-	User populateUsers;
+	
 	populateUsers.loadFile();
 
 	//populateUsers.printUser();
@@ -202,7 +204,7 @@ void start_menu(string &word, bool &canProceed) {
 	case 2:
 	{
 		//LOG IN AS USER 
-		canProceed = userAccess(populateUsers);
+		canProceed = userAccess();
 		if (canProceed) {
 			wordChosen = loadRandomWord("wordset.txt");
 		}
@@ -326,7 +328,7 @@ void updateBoard(word user) //changed the function so that it can handle updates
 
 }
 
-bool userAccess(User populateUsers) {
+bool userAccess() {
 	int userMenu;
 	string userName, password;
 	bool exit = false;
@@ -350,7 +352,7 @@ bool userAccess(User populateUsers) {
 		populateUsers.setLoses(populateUsers.getLoses());
 		populateUsers.setWinPct(populateUsers.getWinPct());
 		populateUsers.setStreak(populateUsers.getStreak());
-		populateUsers.setLastPlay(populateUsers.getLastPlay());
+	//	populateUsers.setLastPlay(populateUsers.getLastPlay());
 		system("pause");
 		string title = "Hello " + populateUsers.getName() + " Wins (Should be 2): " + to_string(populateUsers.getWins());
 		//have menu print again. Can choose to see stats or play game 
