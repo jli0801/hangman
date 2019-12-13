@@ -125,6 +125,7 @@ void User::printHistory()
 }
 void User::loadFile()
 {
+	/*
 	//create a new user for each line 
 	ifstream file("UserAccountHistory.txt");
 	string row;
@@ -182,6 +183,51 @@ void User::loadFile()
 		}
 		//able to open 
 		//scan each row and each row is separated by name, password, win, losses, winpct, winstreak, last play
+	}
+	*/
+
+	string word = "";
+	int number = 0;
+	string name, password, last, win, loss, pct, streak;
+	int counter = 0;
+	ifstream file("UserAccountHistory.txt");
+	if (file.is_open())
+	{
+		while (!file.eof()) {
+			file >> word;
+			counter++;
+			if (counter == 1)
+			{
+				name = word;
+			}
+			else if (counter == 2)
+			{
+				password = word;
+			}
+			else if (counter == 3)
+			{
+				win = word;
+			}
+			else if (counter == 4)
+			{
+				loss = word;
+			}
+			else if (counter == 5)
+			{
+				pct = word;
+			}
+			else if (counter == 6)
+			{
+				streak = word;
+			}
+			else
+			{
+				last = word;
+				User addMember = User(name, password, stoi(win), stoi(loss), stoi(pct), stoi(streak), last);
+				users.push_back(addMember);
+				counter = 0;
+			}
+		}
 	}
 
 }
