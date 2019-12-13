@@ -16,7 +16,6 @@ User::User(string n, string p, int w, int l, int wp, int ws, string lp) : Accoun
 	winPct = wp;
 	winStreak = ws;
 	lastPlay = lp;
-	
 }
 
 int User::getWins()
@@ -28,8 +27,6 @@ void User::setWins(int w)
 {
 	wins = w;
 }
-
-
 
 int User::getLoses()
 {
@@ -71,56 +68,40 @@ void User::populateUser()
 	//User::loadFile();
 	//this is called in init()
 	//so now the list is populated  
-	std::list<User> ::iterator it;
-	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
+	for (int i = 0; i < this->users.size(); i++)
 	{
-		if (it->getName().compare(this->getName()) && it->getPassword().compare(this->getPassword()))
+		if (users[i].getName().compare(this->getName()) && users[i].getPassword().compare(this->getPassword()))
 		{
-			//if the creditentials are the same 
-			this->setWins(it->getWins());
-			this->setLoses(it->getLoses());
-			this->setStreak(it->getStreak());
-			this->setWins(it->getWins());
-			this->setWinPct(it->getWinPct());
+			//if the credentials are the same 
+			this->setWins(users[i].getWins());
+			this->setLoses(users[i].getLoses());
+			this->setStreak(users[i].getStreak());
+			this->setWins(users[i].getWins());
+			this->setWinPct(users[i].getWinPct());
 		}
 	}
 }
 
 
-list<User> User::getAllUsers()
-{
-	return User::allUsers;
-}
+
+/*
 
 void User::setAllUsers(list<User> u)
 {
 	User::allUsers = u;
 }
 
-void User::addUser(User &newU)
+*/
+
+void User::setAllUsers(vector<User> u)
 {
-	User::allUsers.push_back(newU);
+	User::users = u;
 }
 
-
-//GETTING RID OF THIS FUNCTION B/C IT GETS FUFILLED BY UPDATE FILE 
-/*
-void User::writeHistoryToFile()
+vector<User> User::getUsers()
 {
-	//rewrite to the same file name to override it 
-
-	//HOW TO: 
-	//read the entire file 
-	//BUT FOR THE USER (if, else) input the new info 
-	//call updateFile() from utilities 
-	ofstream outputFile;
-	outputFile.open("UserAccountHistory.txt");
-	std::list<User> ::iterator it;
-	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
-	{
-		outputFile << it->getName() << " " << it->getPassword() << "  " << to_string(it->getWins()) << "  " << to_string(it->getLoses()) << "      " << to_string(it->getWinPct()) << "  " << to_string(it->getStreak()) << "         " << it->getLastPlay() << endl;
-	}
-}*/
+	return User::users;
+}
 
 void User::printHistory()
 {
@@ -182,12 +163,12 @@ void User::loadFile()
 					}
 				}
 				User addMember = User(name, password, stoi(win), stoi(loss), stoi(pct), stoi(streak), last);
-				this->addUser(addMember);
+				users.push_back(addMember);
+				
 			}
 		}
 		//able to open 
 		//scan each row and each row is separated by name, password, win, losses, winpct, winstreak, last play
-
 	}
 
 }
@@ -199,18 +180,16 @@ void User::updateFile()
 	ofstream outputFile; 
 	outputFile.open("UserAccountHistory.txt");
 	outputFile << " Name Password Wins Losses WinPct WinStreak LastPlay" << endl;
-	std::list<User> ::iterator it; 
-	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
+	for(int i = 0 ; i < this->users.size(); i++)
 	{
-		outputFile << it->getName() << " " << it->getPassword() << "  " << to_string(it->getWins()) << "  " << to_string(it->getLoses()) << "      " << to_string(it->getWinPct()) << "  " << to_string(it->getStreak()) << "         " << it->getLastPlay() << endl;
+		outputFile << users[i].getName() << " " << users[i].getPassword() << "  " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "      " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "         " << users[i].getLastPlay() << endl;
 	}
 }
 
 void User::printUser()
 {
-	std::list<User> ::iterator it;
-	for (it = User::allUsers.begin(); it != User::allUsers.end(); ++it)
+	for (int i = 0; i < this->users.size(); i++)
 	{
-		cout << it->getName() << " " << it->getPassword() << "  " << to_string(it->getWins()) << "  " << to_string(it->getLoses()) << "      " << to_string(it->getWinPct()) << "  " << to_string(it->getStreak()) << "         " << it->getLastPlay() << endl;
+		cout << users[i].getName() << " " << users[i].getPassword() << "  " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "      " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "         " << users[i].getLastPlay() << endl;
 	}
 }

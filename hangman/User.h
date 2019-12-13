@@ -4,8 +4,8 @@ using namespace std;
 #include"Account.h"
 #include <iomanip>
 #include <iostream>
-#include <list> 
 #include <stdio.h>
+#include <vector> 
 
 class User : public Account
 {
@@ -16,7 +16,9 @@ private:
 	int winStreak;
 	string lastPlay;
 	
-	list<User> allUsers;
+	vector<User> users;
+	// list<User> allUsers;
+
 public:
 	User();
 	User(string n, string p, int w, int l, int wp, int ws, string lp);
@@ -30,14 +32,13 @@ public:
 	string getLastPlay();
 	int getStreak();
 	void setStreak(int s);
+
 	void populateUser();
 
-	list<User> getAllUsers();
-	void setAllUsers(list<User> u);
-	void addUser(User &newU);
+	void setAllUsers(vector<User> u);
 
-	//void playGame();
-	//void writeHistoryToFile();
+	vector<User> getUsers();
+
 	void printHistory();
 	void loadFile();
 	void updateFile();
