@@ -64,10 +64,10 @@
     <Text Include="UserAccountHistory.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\..\..\..\Desktop\wordset-medium.txt">
+    <Text Include="wordset_advanced.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\..\..\..\Desktop\wordset-hard.txt">
+    <Text Include="wordset_intermediate.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -140,10 +140,10 @@
     <ClInclude Include="word.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\Desktop\wordset-hard.txt" />
-    <Text Include="..\..\..\..\Desktop\wordset-medium.txt" />
     <Text Include="UserAccountHistory.txt" />
     <Text Include="wordset.txt" />
+    <Text Include="wordset_advanced.txt" />
+    <Text Include="wordset_intermediate.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hangman.rc" />
