@@ -209,22 +209,22 @@ void start_menu(string &word, bool &canProceed) {
 			break;
 		case 2:
 			//MEDIUM
-			/*
+			
 			system("pause");
 			canProceed = true;
 			wordChosen = loadRandomWord("wordset-medium.txt");
 			system("cls");
 			break;
-			*/
+			
 		case 3:
 			//HARD
-			/*
+			
 			system("pause");
 			canProceed = true;
 			wordChosen = loadRandomWord("wordset-hard.txt");
 			system("cls");
 			break;
-			*/
+			
 		default:
 			exit(0);
 			break;
@@ -239,7 +239,44 @@ void start_menu(string &word, bool &canProceed) {
 		*/
 		canProceed = userAccess();
 		if (canProceed) {
-			wordChosen = loadRandomWord("wordset.txt");
+			system("cls");
+			printMessage("Select Difficulty:", true, false);
+			printMessage("1. Easy", false, false);
+			printMessage("2. Medium", false, false);
+			printMessage("3. Hard", false, true);
+			cout << "Please select a number to continue, enter 'q' to quit: ";
+			cin >> inputGame;
+			switch (inputGame)
+			{
+			case 1:
+				system("pause");
+				canProceed = true;
+				wordChosen = loadRandomWord("wordset.txt");
+				system("cls");
+				break;
+			case 2:
+				//MEDIUM
+
+				system("pause");
+				canProceed = true;
+				wordChosen = loadRandomWord("wordset-medium.txt");
+				system("cls");
+				break;
+
+			case 3:
+				//HARD
+
+				system("pause");
+				canProceed = true;
+				wordChosen = loadRandomWord("wordset-hard.txt");
+				system("cls");
+				break;
+
+			default:
+				exit(0);
+				break;
+			}
+			break;
 		}
 	}
 	break;

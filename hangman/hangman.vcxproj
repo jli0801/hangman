@@ -134,6 +134,7 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="Admin.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="utilities.h" />
     <ClInclude Include="word.h" />
@@ -143,6 +144,9 @@
     <Text Include="..\..\..\..\Desktop\wordset-medium.txt" />
     <Text Include="UserAccountHistory.txt" />
     <Text Include="wordset.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hangman.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

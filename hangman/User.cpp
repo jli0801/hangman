@@ -84,5 +84,7 @@ void User::printHistory()
 
 void User::updateWinPct()
 {
-	User::winPct = (double(this->getWins()/(this->getWins() + this->getLoses()) * 100));
+	double total = double(this->getWins() + this->getLoses());
+	
+	User::winPct = double(this->getWins() / total) * 100;
 }
