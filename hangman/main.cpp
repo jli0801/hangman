@@ -488,58 +488,30 @@ bool adminAccess() {
 void loadFile()
 {
 	string word = "";
-	string name, password, last, win, loss, pct, streak;
-	int counter = 0;
+	string name, password, last, heading;
+	int win, loss, streak;
+	double pct;
+	int counter = 1;
 	ifstream file("UserAccountHistory.txt");
 	if (file.is_open())
 	{
-		while (!file.eof()) 
+		for (int i = 0; i < 7; i++)
 		{
-			//we need to skip the first line 
+			file >> heading;
+		}
 
-			for (int i = 0; i < 7; i++)
-			{
-				file >> word;
-			}
+		while (!file.eof())
+		{
+			//we need to skip the first line
 
-			while (counter < 7)
+			while (file >> name >> password >> win >> loss >> pct >> streak >> last)
 			{
-				file >> word;
-				if (counter == 0)
+				if ((name.compare("Name") != 0) && (password.compare("Password") != 0))
 				{
-					name = word;
+					users.push_back(User(name, password, win, loss, pct, streak, last));
+
 				}
-				if (counter == 1)
-				{
-					password = word;
-				}
-				if (counter == 2)
-				{
-					win = word;
-				}
-				if (counter == 3)
-				{
-					loss = word;
-				}
-				if (counter == 4)
-				{
-					pct = word;
-				}
-				if (counter == 5)
-				{
-					streak = word;
-				}
-				if (counter == 6)
-				{
-					last = word;
-					if (!(name.empty()) && !(password.empty()))
-					{
-						User addMember = User(name, password, stoi(win), stoi(loss), stod(pct), stoi(streak), last);
-						users.push_back(addMember);
-					}
-					counter = -1;
-				}
-				counter++;
+
 			}
 		}
 	}
