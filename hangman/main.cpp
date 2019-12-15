@@ -28,7 +28,6 @@ User populateUsers = User("", "", 0, 0, 0, 0, "");
 
 vector<User> users;
 
-
 //features
 void start_menu(string &word, bool& canProceed);
 string newWord(string& word);
@@ -46,6 +45,8 @@ User findUser(string username, string password);
 int main()
 {
 start:
+	vector<string> status;
+	vector<vector<string>> userHistory;
 	char inputUser;
 	//start of the initializer
 	won = false;
@@ -55,6 +56,8 @@ start:
 
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
 
+	//populateUsers.importHistory(userHistory);
+	//exit(0);
 	while (!canProceed) {
 		start_menu(wordChosen, canProceed);
 	}
@@ -370,7 +373,7 @@ bool userAccess() {
 	if (userAcc.Login())
 	{
 		cout << "You sucessfully logged in! \n";
-		
+		/*
 		populateUsers.setName(userName);
 		populateUsers.setPassword(password);
 		populateUsers.setWins(users[1].getWins());
@@ -378,6 +381,7 @@ bool userAccess() {
 		populateUsers.setWinPct(users[1].getWinPct());
 		populateUsers.setStreak(users[1].getStreak());
 		populateUsers.setLastPlay(users[1].getLastPlay());
+		*/
 		system("pause");
 		string title = "Hello " + populateUsers.getName() + " Wins (Should be 1): " + to_string(populateUsers.getWins());
 		//have menu print again. Can choose to see stats or play game 
@@ -399,7 +403,7 @@ bool userAccess() {
 				break;
 			case 2:
 				//print history
-				populateUsers.printHistory();
+				//populateUsers.printHistory();
 				break;
 			default:
 				//exit(0);
@@ -483,7 +487,6 @@ bool adminAccess() {
 
 void loadFile()
 {
-	
 	string word = "";
 	string name, password, last, win, loss, pct, streak;
 	int counter = 0;
@@ -540,6 +543,7 @@ void loadFile()
 			}
 		}
 	}
+	file.close();
 
 }
 void updateFile()

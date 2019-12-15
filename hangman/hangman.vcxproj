@@ -139,6 +139,8 @@
     <ClInclude Include="word.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\..\..\..\Desktop\wordset-hard.txt" />
+    <Text Include="..\..\..\..\Desktop\wordset-medium.txt" />
     <Text Include="UserAccountHistory.txt" />
     <Text Include="wordset.txt" />
   </ItemGroup>

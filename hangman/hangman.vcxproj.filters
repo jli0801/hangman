@@ -61,5 +61,11 @@
     <Text Include="UserAccountHistory.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="..\..\..\..\Desktop\wordset-medium.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Desktop\wordset-hard.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

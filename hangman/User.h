@@ -19,7 +19,7 @@ private:
 
 public:
 	User();
-	User(string n, string p, int w, int l, int wp, int ws, string lp);
+	User(string n, string p, int w, int l, double wp, int ws, string lp);
 
 	int getWins();
 	void setWins(int w);
@@ -33,7 +33,10 @@ public:
 	int getStreak();
 	void setStreak(int ws);
 
-	void printHistory();
+	void importHistory(vector<vector<string>>& userHistory);
+	void printHistory(vector<vector<string>>& userHistory);
+	void updateHistory(vector<string> &user);
+	void str_to_vector(string str, vector<string>& v);
 
 };
 
