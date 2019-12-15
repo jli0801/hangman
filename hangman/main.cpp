@@ -24,7 +24,6 @@ word usersWord; //default construtor is called
 int index;
 bool won;
 bool canProceed;
-//User populateUsers = User("", "", 0, 0, 0, 0, "");
 //MAKE A GLOBAL USER THAT WE CAN OVERRIDE WHEN THE USER LOGS IN 
 
 vector<User> users;
@@ -42,7 +41,7 @@ void printUser();
 void updateFile();
 void findUser(string username, string password);
 
-
+//MAIN FUNCTION
 int main()
 {
 start:
@@ -57,19 +56,17 @@ start:
 
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
 
-	//exit(0);
 	while (!canProceed) {
 		start_menu(wordChosen, canProceed);
 	}
 	init(wordChosen);
 	//have to input a word from a file before populate word can be used in update board
 	word usersWord = word(wordChosen);
-	//cout << usersWord.getWord() << endl;
 	updateBoard(usersWord);
 
 	do{
 
-		cout << usersWord.getWord() << endl;//TAKE THIS OUT IN THE END PLS
+
 
 		cout << "\nGuess a letter/word: " << endl;
 		cin >> inputUser; //could be a char or word
@@ -136,7 +133,8 @@ start:
 }
 
 
-
+//INIT FUNCTION
+//Purpose: Clears the variables, arrays, vector to reset the game.
 void init(string& wordIn)
 {
 	//initialize variables 
@@ -144,8 +142,6 @@ void init(string& wordIn)
 	tries = 0; //max is 6 
 	guessPointer = 0; //max is 26
 	
-
-	usersWord.~word();
 
 	word usersWord = word(wordIn);
 
@@ -162,18 +158,20 @@ void init(string& wordIn)
 	//end of initialize 
 }
 
+//NEW WORD
+//Purpose: Loads a new word 
 string newWord(string& wordIn)
 {
 	wordIn = loadRandomWord("wordset.txt");
 	return wordIn;
 }
 
+//START MENU
+//Purpose: Generates the start menu
 void start_menu(string &word, bool &canProceed) {
 	string inStr = "";
 	int inputGame = 0;
 	
-	
-
 	int input;
 	string userName;
 	string password;
@@ -212,7 +210,7 @@ void start_menu(string &word, bool &canProceed) {
 			
 			system("pause");
 			canProceed = true;
-			wordChosen = loadRandomWord("wordset-medium.txt");
+			wordChosen = loadRandomWord("wordset_intermediate.txt");
 			system("cls");
 			break;
 			
@@ -221,7 +219,7 @@ void start_menu(string &word, bool &canProceed) {
 			
 			system("pause");
 			canProceed = true;
-			wordChosen = loadRandomWord("wordset-hard.txt");
+			wordChosen = loadRandomWord("wordset_advanced.txt");
 			system("cls");
 			break;
 			
@@ -259,7 +257,7 @@ void start_menu(string &word, bool &canProceed) {
 
 				system("pause");
 				canProceed = true;
-				wordChosen = loadRandomWord("wordset-medium.txt");
+				wordChosen = loadRandomWord("wordset_intermediate.txt");
 				system("cls");
 				break;
 
@@ -268,7 +266,7 @@ void start_menu(string &word, bool &canProceed) {
 
 				system("pause");
 				canProceed = true;
-				wordChosen = loadRandomWord("wordset-hard.txt");
+				wordChosen = loadRandomWord("wordset_advanced.txt");
 				system("cls");
 				break;
 
@@ -299,6 +297,8 @@ void start_menu(string &word, bool &canProceed) {
 	}
 }
 
+//UPDATE BOARD
+//Purpose: Updates the board with the hangman if the input is correct/incorrect
 void updateBoard(word user) //changed the function so that it can handle updates 
 {
 	string wordOutput = user.populateWord();
@@ -407,6 +407,8 @@ void updateBoard(word user) //changed the function so that it can handle updates
 
 }
 
+//USER ACCESS
+//Purpose: Tests whether the user can login
 bool userAccess() {
 	int userMenu;
 	string userName, password;
@@ -443,11 +445,11 @@ bool userAccess() {
 				break;
 			case 2:
 				//print history
-				//populateUsers.printHistory();
+				
 				users[index].printHistory();
 				break;
 			default:
-				//exit(0);
+			
 				exit = true;
 				break;
 			}
@@ -465,6 +467,8 @@ bool userAccess() {
 	return false;
 }
 
+//ADMIN ACCESS
+//Purpose: Test whether the admin can log in or not 
 bool adminAccess() {
 	string userNameAd = "",passwordAd ="", word = "";
 	int adminMenu = 0;
@@ -525,7 +529,8 @@ bool adminAccess() {
 }
 
 
-
+//LOAD FILE
+//Purpose: Takes the txt file and converts it into a vector of Users
 void loadFile()
 {
 	string word = "";
@@ -559,6 +564,9 @@ void loadFile()
 	file.close();
 
 }
+
+//UPDATE File
+//Purpose: Takes the vector of users and prints it back to the UserAccountHistory 
 void updateFile()
 {
 	//so they're updating u's 
@@ -575,7 +583,8 @@ void updateFile()
 	outputFile.close();
 }
 
-
+//PRINT USER
+//Purpose: Used for testing purposes to see the insides of vector<User> 
 void printUser()
 {
 	for (int i = 0; i < users.size(); i++)
@@ -584,6 +593,8 @@ void printUser()
 	}
 }
 
+//findUser
+//Purpose: Finds the index in the vector of the User 
 void findUser(string username, string password)
 {
 	for (int i = 0; i < users.size(); i++)

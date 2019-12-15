@@ -15,7 +15,7 @@ private:
 	
 public:
 	word();
-	~word();
+	
 	word(string input);
 	string getWord();
 	int getLength();

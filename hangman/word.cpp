@@ -4,6 +4,7 @@
 #include <array>
 using std::string;
 
+//DEFAULT CONSTRUCTOR
 word::word() {
 	//default contructor 
 	this->chosenWord = " ";
@@ -15,10 +16,7 @@ word::word() {
 	this->charGuessed[0] = ' ';
 
 }
-word::~word()
-{
-
-}
+//CONSTRUCTOR
 word::word(string input)
 {
 	this->chosenWord = input;
@@ -36,17 +34,18 @@ word::word(string input)
 		this->charGuessed[j] = input[j];
 	}
 }
-
+//GETTER FOR WORD
 string word::getWord()
 {
 	return this->chosenWord;
 }
-
+//GETTER FOR LENGTH
 int word::getLength()
 {
 	return this->chosenWord.length();
 }
-
+//POPULATE WORD
+//PURPOSE: CREATES A STRING THAT GETS DISPLAYED BASED ON IF THEY GOT THE LETTER CORRECT
 string word::populateWord()
 {
 	string output = "";
@@ -69,17 +68,18 @@ string word::populateWord()
 	}
 	return output;
 }
-
+//SETTER FOR USED WORD
 void word::setUsedWord(bool input)
 {
 	this->usedWord = input;
 }
-
+//GETTER FOR USED WORD
 bool word::getUsedWord()
 {
 	return this->usedWord;
 }
-
+//PRINT WORD
+//PURPOSE: BASED OFF OF THE PRINT MESSAGE BUT IT'S FOR WORD 
 void word::printWord(string word, bool top, bool bottom)
 {
 
@@ -117,7 +117,7 @@ void word::printWord(string word, bool top, bool bottom)
 		cout << "|" << endl;
 	}
 }
-
+//SETTER FOR VALUES 
 bool word::setValues(char inChar)
 {
 	//set the bool array here 
@@ -135,7 +135,8 @@ bool word::setValues(char inChar)
 	}
 	return set;
 }
-
+//CHECK WHOLE WORD
+//PURPOSE: CHECKS WHETHER THE WORD HAS BEEN SOLVED OR NOT 
 bool word::checkWholeWord()
 {
 	for (int i = 0; i < this->getLength(); i++)

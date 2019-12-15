@@ -7,7 +7,8 @@
 #include <cstring>
 
 using namespace std;
-
+//PRINT MESSAGE 
+//PURPOSE: Prints a message with the template provided
 void printMessage(string message, bool printTop, bool printBottom)
 {
 	if (printTop)
@@ -44,7 +45,8 @@ void printMessage(string message, bool printTop, bool printBottom)
 		cout << "|" << endl;
 	}
 }
-
+//LOAD RANDOM WORD
+//PURPOSE: Uses the input to find a txt file and randomizes to get a word 
 string loadRandomWord(string path)
 {
 	srand(time(0));
@@ -61,6 +63,8 @@ string loadRandomWord(string path)
 	return word;
 }
 
+//CHECK GUESSES
+//Purpose: CHECKS TO SEE IF THE USER INPUT HAS ALREADY BEEN USED 
 bool check_guesses(char input, char guesses[])//checks to see if the new user input has been already guessed
 {
 	if (!((input>='a'&&input<='z')||(input>='A'&&input<='Z')))
