@@ -40,6 +40,8 @@ bool adminAccess();
 void loadFile();
 void printUser();
 void updateFile();
+User findUser(string username, string password);
+
 
 int main()
 {
@@ -137,6 +139,7 @@ void init(string& wordIn)
 
 	word usersWord = word(wordIn);
 
+	loadFile();
 	for (int i = 0; i < sizeof(guesses); i++)
 	{
 		guesses[i] = NULL;
@@ -161,7 +164,6 @@ void start_menu(string &word, bool &canProceed) {
 	int inputGame = 0;
 	
 	
-	loadFile();
 
 	int input;
 	string userName;
@@ -256,6 +258,8 @@ void updateBoard(word user) //changed the function so that it can handle updates
 	string wordOutput = user.populateWord();
 	printMessage("Hangman", true, false);
 	printMessage("|", true, false);
+	
+
 	if (misses[0] != NULL && tries == 1)
 	{
 		printMessage("o", false, false); //head
@@ -366,17 +370,16 @@ bool userAccess() {
 	if (userAcc.Login())
 	{
 		cout << "You sucessfully logged in! \n";
-		//userPlaceHolder = User(userName, password, 0, 0, 0, 0, "");
-		//userPlaceHolder = User(userName, password, userPlaceHolder.getWins(), userPlaceHolder.getLoses(), userPlaceHolder.getWinPct(), userPlaceHolder.getStreak(), userPlaceHolder.getLastPlay());
+		
 		populateUsers.setName(userName);
 		populateUsers.setPassword(password);
-		populateUsers.setWins(populateUsers.getWins());
-		populateUsers.setLoses(populateUsers.getLoses());
-		populateUsers.setWinPct(populateUsers.getWinPct());
-		populateUsers.setStreak(populateUsers.getStreak());
-	//	populateUsers.setLastPlay(populateUsers.getLastPlay());
+		populateUsers.setWins(users[1].getWins());
+		populateUsers.setLoses(users[1].getLoses());
+		populateUsers.setWinPct(users[1].getWinPct());
+		populateUsers.setStreak(users[1].getStreak());
+		populateUsers.setLastPlay(users[1].getLastPlay());
 		system("pause");
-		string title = "Hello " + populateUsers.getName() + " Wins (Should be 2): " + to_string(populateUsers.getWins());
+		string title = "Hello " + populateUsers.getName() + " Wins (Should be 1): " + to_string(populateUsers.getWins());
 		//have menu print again. Can choose to see stats or play game 
 		
 			system("cls");
@@ -482,74 +485,59 @@ void loadFile()
 {
 	
 	string word = "";
-	int number = 0;
 	string name, password, last, win, loss, pct, streak;
 	int counter = 0;
 	ifstream file("UserAccountHistory.txt");
 	if (file.is_open())
 	{
-		while (!file.eof()) {
+		while (!file.eof()) 
+		{
+			//we need to skip the first line 
 
 			for (int i = 0; i < 7; i++)
 			{
-				file >> word; //skip the first line 
+				file >> word;
 			}
 
-			file >> word;
-
-			//we need to skip the first line 
-
-
-			while (counter < 8)
+			while (counter < 7)
 			{
-				if (counter == 1) 
+				file >> word;
+				if (counter == 0)
 				{
-					//username is identified in file
-					file >> word;
 					name = word;
 				}
-				//checks next string to check password
+				if (counter == 1)
+				{
+					password = word;
+				}
 				if (counter == 2)
 				{
-					file >> word;
-					password = word;
+					win = word;
 				}
 				if (counter == 3)
 				{
-					file >> word;
-					win = word;
+					loss = word;
 				}
 				if (counter == 4)
 				{
-					file >> word;
-					loss = word;
+					pct = word;
 				}
 				if (counter == 5)
 				{
-					file >> word;
-					pct = word;
+					streak = word;
 				}
 				if (counter == 6)
 				{
-					file >> word;
-					streak = word;
-				}
-				if (counter == 7)
-				{
-					file >> word;
 					last = word;
+					if (!(name.empty()) && !(password.empty()))
+					{
+						User addMember = User(name, password, stoi(win), stoi(loss), stod(pct), stoi(streak), last);
+						users.push_back(addMember);
+					}
+					counter = -1;
 				}
 				counter++;
 			}
-
-			if ((!name.empty()) && (!password.empty()))
-			{
-				User addMember = User(name, password, stoi(win), stoi(loss), stod(pct), stoi(streak), last);
-
-				users.push_back(addMember);
-			}
-				counter = 0;
-		
 		}
 	}
 
@@ -568,6 +556,7 @@ void updateFile()
 	}
 }
 
+
 void printUser()
 {
 	for (int i = 0; i < users.size(); i++)
@@ -575,3 +564,16 @@ void printUser()
 		cout << users[i].getName() << " " << users[i].getPassword() << "  " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "      " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "         " << users[i].getLastPlay() << endl;
 	}
 }
+
+User findUser(string username, string password)
+{
+	for (int i = 0; i < users.size(); i++)
+	{
+		if (users[i].getName().compare(username) == 0 && users[i].getPassword().compare(password) == 0)
+		{
+			return users[i];
+			break;
+		}
+	}
+}
+
