@@ -212,7 +212,7 @@ void start_menu(string &word, bool &canProceed) {
 			/*
 			system("pause");
 			canProceed = true;
-			wordChosen = loadRandomWord("wordsetMedium.txt");
+			wordChosen = loadRandomWord("wordset-medium.txt");
 			system("cls");
 			break;
 			*/
@@ -221,7 +221,7 @@ void start_menu(string &word, bool &canProceed) {
 			/*
 			system("pause");
 			canProceed = true;
-			wordChosen = loadRandomWord("wordsetHard.txt");
+			wordChosen = loadRandomWord("wordset-hard.txt");
 			system("cls");
 			break;
 			*/
@@ -533,7 +533,7 @@ void updateFile()
 	outputFile << "Name Password Wins Losses WinPct WinStreak LastPlay" << endl;
 	for(int i = 0 ; i < users.size(); i++)
 	{
-		outputFile << users[i].getName() << " " << users[i].getPassword() << "  " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "      " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "         " << users[i].getLastPlay() << endl;
+		outputFile << users[i].getName() << " " << users[i].getPassword() << " " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "     " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "     " << users[i].getLastPlay() << endl;
 	}
 	outputFile.close();
 }

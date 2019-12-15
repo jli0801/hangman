@@ -75,14 +75,14 @@ void User::setStreak(int s)
 
 void User::printHistory()
 {
-	cout << "Wins: " << wins << " ";
-	cout << "Loses: " << loses << " ";
-	cout << "Winning Percentage: " << winPct << "%" << " ";
-	cout << "Win Streak: " << winStreak << " ";
-	cout << "Last Play: " << lastPlay << " " ;
+	cout << "Wins: " << this->getWins() << " ";
+	cout << "Loses: " << this->getLoses() << " ";
+	cout << "Win Pct: " << this->getWinPct() << "%" << " ";
+	cout << "Win Streak: " << this->getStreak() << " ";
+	cout << "Last Play: " << this->getLastPlay() << " " ;
 }
 
 void User::updateWinPct()
 {
-	User::winPct = double (User::wins/(User::wins + User::loses)) * 100;
+	User::winPct = (double(this->getWins()/(this->getWins() + this->getLoses()) * 100));
 }

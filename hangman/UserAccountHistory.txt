@@ -1,5 +1,5 @@
 Name Password Wins Losses WinPct WinStreak LastPlay
-Doro sleepMuch  10  3      0.000000  0         inquisitive
-Jess bearBear  1  2      33.330000  1         apple
-Lily uwuOwo  3  0      100.000000  2         rice
-Darr iceBear  2  1      0.000000  1         pretending
+Doro sleepMuch 2  1     33.330000  1     degree
+Jess bearBear 5  2     0.000000  7     knowing
+Lily uwuOwo 3  0     100.000000  2     rice
+Darr iceBear 2  1     66.670000  1     pretending
