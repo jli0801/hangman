@@ -33,10 +33,8 @@ public:
 	int getStreak();
 	void setStreak(int ws);
 
-	void importHistory(vector<vector<string>>& userHistory);
-	void printHistory(vector<vector<string>>& userHistory);
-	void updateHistory(vector<string> &user);
-	void str_to_vector(string str, vector<string>& v);
+	void updateWinPct();
+	void printHistory();
 
 };
 

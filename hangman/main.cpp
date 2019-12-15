@@ -21,9 +21,10 @@ char misses[6]; //so it can handle up to 6 misses
 int tries;
 string wordChosen;
 word usersWord; //default construtor is called
+int index;
 bool won;
 bool canProceed;
-User populateUsers = User("", "", 0, 0, 0, 0, "");
+//User populateUsers = User("", "", 0, 0, 0, 0, "");
 //MAKE A GLOBAL USER THAT WE CAN OVERRIDE WHEN THE USER LOGS IN 
 
 vector<User> users;
@@ -39,14 +40,14 @@ bool adminAccess();
 void loadFile();
 void printUser();
 void updateFile();
-User findUser(string username, string password);
+void findUser(string username, string password);
 
 
 int main()
 {
 start:
+	loadFile();
 	vector<string> status;
-	vector<vector<string>> userHistory;
 	char inputUser;
 	//start of the initializer
 	won = false;
@@ -56,7 +57,6 @@ start:
 
 	//open start menu, choose a file, and pick a word from file to input into wordchosen
 
-	//populateUsers.importHistory(userHistory);
 	//exit(0);
 	while (!canProceed) {
 		start_menu(wordChosen, canProceed);
@@ -104,6 +104,13 @@ start:
 			printMessage("Congratulations! You Won!", true, true);
 			system("pause");
 			won = true;
+			users[index].setWins(users[index].getWins()+1);
+			users[index].updateWinPct();
+			users[index].setStreak(users[index].getStreak() + 1);
+			users[index].setLastPlay(usersWord.getWord());
+			updateFile();
+			users.clear();
+			loadFile();
 			//if won is true and we want to prompt user if they want to play again
 			if (won) {
 				int userChoice = 0;
@@ -142,7 +149,6 @@ void init(string& wordIn)
 
 	word usersWord = word(wordIn);
 
-	loadFile();
 	for (int i = 0; i < sizeof(guesses); i++)
 	{
 		guesses[i] = NULL;
@@ -350,7 +356,14 @@ void updateBoard(word user) //changed the function so that it can handle updates
 	}
 	if (m == 6) {
 		cout << "\n";
-		printMessage("     YOU LOSE:(     ",true,true);
+		printMessage("     YOU LOSE:(     ", true, true);
+		users[index].setLoses(users[index].getLoses() + 1);
+		users[index].updateWinPct();
+		users[index].setStreak(0);
+		users[index].setLastPlay(usersWord.getWord());
+		updateFile();
+		users.clear();
+		loadFile();
 		cout << "\n";
 		exit(0);
 	}
@@ -373,26 +386,16 @@ bool userAccess() {
 	if (userAcc.Login())
 	{
 		cout << "You sucessfully logged in! \n";
-		/*
-		populateUsers.setName(userName);
-		populateUsers.setPassword(password);
-		populateUsers.setWins(users[1].getWins());
-		populateUsers.setLoses(users[1].getLoses());
-		populateUsers.setWinPct(users[1].getWinPct());
-		populateUsers.setStreak(users[1].getStreak());
-		populateUsers.setLastPlay(users[1].getLastPlay());
-		*/
+
 		system("pause");
-		string title = "Hello " + populateUsers.getName() + " Wins (Should be 1): " + to_string(populateUsers.getWins());
-		//have menu print again. Can choose to see stats or play game 
-		
+		findUser(userName, password);
+
 			system("cls");
-			printMessage(title, true, true);
 			printMessage("1. Play a Game", false, false);
 			printMessage("2. Check your history", false, true);
 
 		while (!exit) {
-			cout << "\nPlease select a number to continue, enter any other key to quit: ";
+			cout << "\nPlease select 1 to play, enter any other number to return to menu: ";
 			cin >> userMenu;
 			switch (userMenu)
 			{
@@ -404,6 +407,7 @@ bool userAccess() {
 			case 2:
 				//print history
 				//populateUsers.printHistory();
+				users[index].printHistory();
 				break;
 			default:
 				//exit(0);
@@ -525,11 +529,13 @@ void updateFile()
 	//then rewrite over the exsisting txt file with the list's info
 	ofstream outputFile; 
 	outputFile.open("UserAccountHistory.txt");
-	outputFile << " Name Password Wins Losses WinPct WinStreak LastPlay" << endl;
+
+	outputFile << "Name Password Wins Losses WinPct WinStreak LastPlay" << endl;
 	for(int i = 0 ; i < users.size(); i++)
 	{
 		outputFile << users[i].getName() << " " << users[i].getPassword() << "  " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "      " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "         " << users[i].getLastPlay() << endl;
 	}
+	outputFile.close();
 }
 
 
@@ -541,14 +547,13 @@ void printUser()
 	}
 }
 
-User findUser(string username, string password)
+void findUser(string username, string password)
 {
 	for (int i = 0; i < users.size(); i++)
 	{
-		if (users[i].getName().compare(username) == 0 && users[i].getPassword().compare(password) == 0)
+		if (((users[i].getName()).compare(username) == 0) && ((users[i].getPassword()).compare(password) == 0))
 		{
-			return users[i];
-			break;
+			index = i;
 		}
 	}
 }
