@@ -26,6 +26,9 @@ bool canProceed;
 User populateUsers = User("", "", 0, 0, 0, 0, "");
 //MAKE A GLOBAL USER THAT WE CAN OVERRIDE WHEN THE USER LOGS IN 
 
+vector<User> users;
+
+
 //features
 void start_menu(string &word, bool& canProceed);
 string newWord(string& word);
@@ -33,6 +36,10 @@ void updateBoard(word user); //changing game_start to func as a update board
 void init(string&);
 bool userAccess();
 bool adminAccess();
+
+void loadFile();
+void printUser();
+void updateFile();
 
 int main()
 {
@@ -154,10 +161,8 @@ void start_menu(string &word, bool &canProceed) {
 	int inputGame = 0;
 	
 	
-	populateUsers.loadFile();
+	loadFile();
 
-	//populateUsers.printUser();
-	
 	int input;
 	string userName;
 	string password;
@@ -452,4 +457,76 @@ bool adminAccess() {
 	}
 	system("cls");
 	return false;
+}
+
+
+
+void loadFile()
+{
+	
+	string word = "";
+	int number = 0;
+	string name, password, last, win, loss, pct, streak;
+	int counter = 0;
+	ifstream file("UserAccountHistory.txt");
+	if (file.is_open())
+	{
+		while (!file.eof()) {
+			file >> word;
+			counter++;
+			if (counter == 1)
+			{
+				name = word;
+			}
+			else if (counter == 2)
+			{
+				password = word;
+			}
+			else if (counter == 3)
+			{
+				win = word;
+			}
+			else if (counter == 4)
+			{
+				loss = word;
+			}
+			else if (counter == 5)
+			{
+				pct = word;
+			}
+			else if (counter == 6)
+			{
+				streak = word;
+			}
+			else
+			{
+				last = word;
+				User addMember = User(name, password, stoi(win), stoi(loss), stoi(pct), stoi(streak), last);
+				users.push_back(addMember);
+				counter = 0;
+			}
+		}
+	}
+
+}
+void updateFile()
+{
+	//so they're updating u's 
+	//change the LIST first 
+	//then rewrite over the exsisting txt file with the list's info
+	ofstream outputFile; 
+	outputFile.open("UserAccountHistory.txt");
+	outputFile << " Name Password Wins Losses WinPct WinStreak LastPlay" << endl;
+	for(int i = 0 ; i < users.size(); i++)
+	{
+		outputFile << users[i].getName() << " " << users[i].getPassword() << "  " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "      " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "         " << users[i].getLastPlay() << endl;
+	}
+}
+
+void printUser()
+{
+	for (int i = 0; i < users.size(); i++)
+	{
+		cout << users[i].getName() << " " << users[i].getPassword() << "  " << to_string(users[i].getWins()) << "  " << to_string(users[i].getLoses()) << "      " << to_string(users[i].getWinPct()) << "  " << to_string(users[i].getStreak()) << "         " << users[i].getLastPlay() << endl;
+	}
 }

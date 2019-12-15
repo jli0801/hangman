@@ -15,9 +15,7 @@ private:
 	double winPct;
 	int winStreak;
 	string lastPlay;
-	
-	vector<User> users;
-	// list<User> allUsers;
+
 
 public:
 	User();
