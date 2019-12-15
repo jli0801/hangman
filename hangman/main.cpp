@@ -198,8 +198,22 @@ void start_menu(string &word, bool &canProceed) {
 			break;
 		case 2:
 			//MEDIUM
+			/*
+			system("pause");
+			canProceed = true;
+			wordChosen = loadRandomWord("wordsetMedium.txt");
+			system("cls");
+			break;
+			*/
 		case 3:
 			//HARD
+			/*
+			system("pause");
+			canProceed = true;
+			wordChosen = loadRandomWord("wordsetHard.txt");
+			system("cls");
+			break;
+			*/
 		default:
 			exit(0);
 			break;
@@ -209,6 +223,9 @@ void start_menu(string &word, bool &canProceed) {
 	case 2:
 	{
 		//LOG IN AS USER 
+		/*
+		FOR EXTRA CREDIT: PUT IN THE EASY, MEDIUM AND HARD 
+		*/
 		canProceed = userAccess();
 		if (canProceed) {
 			wordChosen = loadRandomWord("wordset.txt");
@@ -472,39 +489,67 @@ void loadFile()
 	if (file.is_open())
 	{
 		while (!file.eof()) {
+
+			for (int i = 0; i < 7; i++)
+			{
+				file >> word; //skip the first line 
+			}
+
 			file >> word;
-			counter++;
-			if (counter == 1)
+
+			//we need to skip the first line 
+
+
+			while (counter < 8)
 			{
-				name = word;
+				if (counter == 1) 
+				{
+					//username is identified in file
+					file >> word;
+					name = word;
+				}
+				//checks next string to check password
+				if (counter == 2)
+				{
+					file >> word;
+					password = word;
+				}
+				if (counter == 3)
+				{
+					file >> word;
+					win = word;
+				}
+				if (counter == 4)
+				{
+					file >> word;
+					loss = word;
+				}
+				if (counter == 5)
+				{
+					file >> word;
+					pct = word;
+				}
+				if (counter == 6)
+				{
+					file >> word;
+					streak = word;
+				}
+				if (counter == 7)
+				{
+					file >> word;
+					last = word;
+				}
+				counter++;
 			}
-			else if (counter == 2)
+
+			if ((!name.empty()) && (!password.empty()))
 			{
-				password = word;
-			}
-			else if (counter == 3)
-			{
-				win = word;
-			}
-			else if (counter == 4)
-			{
-				loss = word;
-			}
-			else if (counter == 5)
-			{
-				pct = word;
-			}
-			else if (counter == 6)
-			{
-				streak = word;
-			}
-			else
-			{
-				last = word;
-				User addMember = User(name, password, stoi(win), stoi(loss), stoi(pct), stoi(streak), last);
+				User addMember = User(name, password, stoi(win), stoi(loss), stod(pct), stoi(streak), last);
+
 				users.push_back(addMember);
-				counter = 0;
 			}
+				counter = 0;
+		
 		}
 	}
 
