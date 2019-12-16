@@ -1,5 +1,5 @@
 Name Password Wins Losses WinPct WinStreak LastPlay
 Doro sleepMuch 3  1     75.000000  2     introduce
 Jess bearBear 10  2     83.333333  11     travesty
-uwuOwo 3 0  100     0.000000  2     rice
+Lily uwuOwo 30  101     22.900763  0      rice
 Darr iceBear 2  1     66.670000  1     pretending
